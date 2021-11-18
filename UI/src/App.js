@@ -6,6 +6,8 @@ import { Route, Router, Routes } from 'react-router-dom';
 import SignUp from './SignUp';
 import SignInSide from './SignInSide';
 import Album from './Album';
+import SearchForm from './SearchForm';
+import SearchResults from './SearchResults';
 function App() {
   return (
     // <div className="App">
@@ -41,6 +43,12 @@ function App() {
       </Route>
       <Route path="/mybookings">
         <Album />
+      </Route>
+      <Route path="/search">
+        <SearchForm />
+      </Route>
+      <Route path="/searchresults">
+        <SearchResults />
       </Route>
       {/* </Routes> */}
       {/* <Routes> */}

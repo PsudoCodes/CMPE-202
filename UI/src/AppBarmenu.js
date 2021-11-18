@@ -12,11 +12,26 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail' ;
+import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import SearchBar from "material-ui-search-bar";
-
+import Drawer from '@material-ui/core/Drawer';
+import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import { Link, useHistory } from 'react-router-dom';
+const useStyles = makeStyles({
+  list: {
+    width: 250,
+  },
+  fullList: {
+    width: 'auto',
+  },
+});
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -63,7 +78,26 @@ export default function PrimarySearchAppBar() {
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const [state, setState] = React.useState({
+    left: false,
+  });
+  //const menuOptions = "My Trips","Search Flights", "Sign Out"
+  const menuOptions = [
+    {
+      label:"My Trips",
+      nav:"/mybookings"
+    },
+    {
+      label:"Search Flights",
+      nav:"/search"
+    },
+    {
+      label:"Sign Out",
+      nav:"/signin"
+    }
+  ];
 
+  const classes = useStyles();
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -84,6 +118,63 @@ export default function PrimarySearchAppBar() {
   const handleSearch = (event) => {
     console.log(event.target.value);
   }
+
+  const handleMenuOpen = (event) => {
+    console.log("hiu");
+  }
+
+  const handleNav = (value) => {
+    console.log(value);
+  }
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+
+  const list = (anchor) => (
+    <div
+      className={clsx(classes.list, {
+        [classes.fullList]: anchor === 'top' || anchor === 'bottom',
+      })}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      {/* <List>
+        {props.type === 'restaurant' && menuItems.map((listItem, key) => (
+          <ListItem button key={key} component={Link} to={listItem.listPath}>
+            <ListItemIcon className={classes.listItem}>{listItem.listIcon}</ListItemIcon>
+            <ListItemText className={classes.listItem} primary={listItem.listText} />
+          </ListItem>
+        ))}
+        {props.type === 'customer' && customer.map((listItem, key) => (
+          <ListItem button key={key} component={Link} to={listItem.listPath}>
+            <ListItemIcon className={classes.listItem}>{listItem.listIcon}</ListItemIcon>
+            <ListItemText className={classes.listItem} primary={listItem.listText} />
+          </ListItem>
+        ))}
+        {props.type === 'signup' && general.map((listItem, key) => (
+          <ListItem button key={key} component={Link} to={listItem.listPath}>
+            <ListItemIcon className={classes.listItem}>{listItem.listIcon}</ListItemIcon>
+            <ListItemText className={classes.listItem} primary={listItem.listText} />
+          </ListItem>
+        ))}
+      </List> */}
+      <List>
+        {/* {["My Trips","Search Flights", "Sign Out"].map((value) => ( */}
+        {menuOptions.map((menu) => (
+          
+          <ListItem button key={menu.label} component={Link} to={menu.nav} >
+            {/* <ListItemIcon className={classes.listItem}>{listItem.listIcon}</ListItemIcon> */}
+            <ListItemText primary={menu.label} />
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  );
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -164,6 +255,7 @@ export default function PrimarySearchAppBar() {
       <AppBar position="static">
         <Toolbar>
           <IconButton
+            onClick={toggleDrawer('left', true)}
             size="large"
             edge="start"
             color="inherit"
@@ -180,7 +272,12 @@ export default function PrimarySearchAppBar() {
           >
 
           </Typography>
-          <Search>
+          <Drawer anchor="left" open={state.left} onClose={toggleDrawer('left', false)}>
+            {list('left')}
+            {/* <h2> Anirudh </h2> */}
+          </Drawer>
+
+          {/* <Search>
             <SearchIconWrapper >
               <div onClick={handleSearch}>
                 <SearchIcon />
@@ -192,7 +289,7 @@ export default function PrimarySearchAppBar() {
               //onChange={handleSearch}
               onClick={handleSearch}
             />
-          </Search>
+          </Search> */}
           {/* <SearchBar
             onChange={() => console.log('onChange')}
             onRequestSearch={() => console.log('onRequestSearch')}
@@ -202,7 +299,7 @@ export default function PrimarySearchAppBar() {
             }}
           /> */}
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+          {/* <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton size="large" aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="error">
                 <MailIcon />
@@ -240,7 +337,7 @@ export default function PrimarySearchAppBar() {
             >
               <MoreIcon />
             </IconButton>
-          </Box>
+          </Box> */}
         </Toolbar>
       </AppBar>
       {renderMobileMenu}

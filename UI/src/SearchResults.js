@@ -42,14 +42,24 @@ function Copyright() {
   );
 }
 
-const cards = [1];
+//const cards = [1,2];
+const cards = [
+  {
+    date:"19th December, 2021",
+    seatType:"Business"
+  },
+  {
+    date:"19th December, 2021",
+    seatType:"Economy"
+  }
+]
 
 const theme = createTheme();
 
-export default function Album() {
+export default function SearchResults() {
   const history = useHistory();
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = () => history.push('/checkout');
   const handleClose = () => setOpen(false);
   const handleUpdate = () => history.push('/checkout');
   
@@ -79,23 +89,25 @@ export default function Album() {
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      SJC ----> NYC
+                      SJC ----> PIT
                     </Typography>
                     <Typography>
                       {/* This is a media card. You can use this section to describe the
                       content. */}
                       <p>
-                        Date: 16th December, 2021
+                        {/* Date: 19th December, 2021 */}
+                        {card.date}
                       </p>
                       <p>
-                        Seat Number: 20G<br />
-                        Seat Type: Economy
+                        {/* Seat Number: 20G<br /> */}
+                        {/* Seat Type: Economy */}
+                        Seat Type: {card.seatType}
                       </p>
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button onClick={handleUpdate} size="small">Update Reservation</Button>
-                    <Button onClick={handleOpen} size="small">Cancel Reservation</Button>
+                    <Button style={{visibility: "hidden"}} onClick={handleUpdate} size="small">Update Reservation</Button>
+                    <Button onClick={handleOpen} size="small">Book</Button>
                   </CardActions>
                 </Card>
               </Grid>

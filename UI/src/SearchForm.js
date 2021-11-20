@@ -53,7 +53,7 @@ export default function Checkout() {
   const history = useHistory();
   const handleNext = () => {
     //setActiveStep(activeStep + 1);
-    history.push('/mybookings');
+    history.push('/searchresults');
   };
 
   const handleBack = () => {

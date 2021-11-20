@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AppBarmenu from './AppBarmenu';
+import { useHistory } from 'react-router-dom';
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -29,6 +30,7 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
+    const history = useHistory();
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -39,6 +41,12 @@ export default function SignUp() {
         });
     };
 
+    const handleSingIn = (event) => {
+        //console.log("sds");
+        
+        history.push('/signin');
+
+    }
     return (
         <ThemeProvider theme={theme}>
             <AppBarmenu />
@@ -85,6 +93,16 @@ export default function SignUp() {
                                 <TextField
                                     required
                                     fullWidth
+                                    id="contact"
+                                    label="Contact Number"
+                                    name="contact"
+                                    autoComplete="contact"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
                                     id="email"
                                     label="Email Address"
                                     name="email"
@@ -105,7 +123,7 @@ export default function SignUp() {
                             <Grid item xs={12}>
                                 <FormControlLabel
                                     control={<Checkbox value="allowExtraEmails" color="primary" />}
-                                    label="I want to receive inspiration, marketing promotions and updates via email."
+                                    label="I want to receive information, marketing promotions and updates via email."
                                 />
                             </Grid>
                         </Grid>
@@ -119,7 +137,7 @@ export default function SignUp() {
                         </Button>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <Link href="#" variant="body2" onClick={handleSingIn}>
                                     Already have an account? Sign in
                                 </Link>
                             </Grid>

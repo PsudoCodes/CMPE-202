@@ -92,6 +92,10 @@ export default function PrimarySearchAppBar() {
       nav:"/search"
     },
     {
+      label:"Rewards",
+      nav:"/rewards"
+    },
+    {
       label:"Sign Out",
       nav:"/signin"
     }

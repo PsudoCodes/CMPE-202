@@ -2,41 +2,34 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from .models import Flight
 from django.views.decorators.csrf import csrf_exempt
+from datetime import datetime
+from .models import Flight, Booking, Customer
+from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Q, F
+import json
 from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from datetime import datetime
 
 
-# Create your views here.
-# goldSilver
-@csrf_exempt
-@api_view(['GET', 'POST'])
-def create_flight(request):
-    if request.method == "POST":
-        flight_number = request.data.get("flight_number")
-        departure_time = datetime.strptime(request.data.get("departure_time"), "%Y-%m-%d").date()
-        arrival_time = datetime.now()
-        duration_in_minutes = request.data.get("durationInMinutes")
-        Flight.objects.create(flight_number=flight_number, departure_time=departure_time,
-                              arrival_time=arrival_time, durationInMinutes=duration_in_minutes)
-        print("Object Created")
-    return HttpResponse("Flight Created")
+@api_view(["POST"])
+def add_customer(request):
+    """
+    enrolls customer
+    :param request:
+    :return:
+    """
 
-
-@csrf_exempt
-@api_view(['GET'])
-def flight_details(request):
-    if request.method == "GET":
-        # flight_number = request.GET.get("flight_number")
-        # duration_in_minutes = request.POST.get("durationInMinutes")
-        all_flights = list(Flight.objects.values())
-
-    return HttpResponse(all_flights)
-
-
-@api_view(['GET'])
-def get_flight(request):
-    if request.method == "GET":
-        flight_number = request.GET.get("flight_number")
-        # duration_in_minutes = request.POST.get("durationInMinutes")
-        all_flights = Flight.objects.filter(flight_number=flight_number).values()
-    return HttpResponse(all_flights)
+    if request.method == 'POST':
+        info = json.loads(request.body)
+        firstName = info.get('firstName')
+        contact = info.get('contact')
+        lastName = info.get('lastName')
+        email = info.get('email')
+        password = info.get('password')
+        existing_customer = Customer.objects.filter(Q(contact=contact) | Q(email=email)).last()
+        if existing_customer:
+            raise Exception("Already exists")
+        else:
+            customer = Customer.objects.create(firstName=firstName, contact=contact, lastName=lastName, password=password, email=email)
+            return Response({"customer_id": customer.id})

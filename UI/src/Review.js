@@ -4,7 +4,8 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
-
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 const products = [
   {
     name: 'Product 1',
@@ -59,7 +60,7 @@ export default function Review() {
         </ListItem>
       </List>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
+        {/* <Grid item xs={12} sm={6}>
           <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
             Shipping
           </Typography>
@@ -82,7 +83,13 @@ export default function Review() {
               </React.Fragment>
             ))}
           </Grid>
-        </Grid>
+        </Grid> */}
+      </Grid>
+      <Grid item xs={12}>
+        <FormControlLabel
+          control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
+          label="Use my reward points"
+        />
       </Grid>
     </React.Fragment>
   );

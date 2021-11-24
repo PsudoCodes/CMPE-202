@@ -42,3 +42,11 @@ class Booking(models.Model):
     card_number = models.IntegerField()
     expiry_date = models.DateTimeField()
     cvv = models.IntegerField()
+
+class Rewards(models.Model):
+    userId =  models.ForeignKey(Customer, on_delete=models.CASCADE)
+    booking_date =  models.ForeignKey(Flight, on_delete=models.CASCADE) 
+    from_location = models.ForeignKey(Flight, on_delete=models.CASCADE)
+    to_location = models.ForeignKey(Flight, on_delete=models.CASCADE)
+    mileage_points = models.IntegerField() 
+    total_points = sum(mileage_points)

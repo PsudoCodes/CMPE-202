@@ -121,4 +121,19 @@ def book_tickets(request):
                                  "customer_details": model_to_dict(booking.customer),
                                  "flight_details": model_to_dict(booking.flight)}
                                 )
+	
+@api_view(["GET"])
+def fetch_Rewards(request):
+    """
+    returns rewards for a particular customer
+    :param request:
+    :return:
+    """
+    if request.method == 'GET':
+        userId = request.GET.get('userId')
+    
+        queried_reward = Rewards.objects.filter(userId=userId)
+
+        return Response({"results": queried_reward.values()})
+
 

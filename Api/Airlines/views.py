@@ -143,3 +143,23 @@ def update_booking(request):
         else:
             raise Exception("Invalid Booking Id")
 
+
+@api_view(["POST"])
+def cancel_booking(request):
+    """
+    changes booking status to cancelled
+    :param request:
+    :return:
+    """
+    if request.method == 'POST':
+        booking_reference_id = request.data.get('booking_reference_id')
+        booking = Booking.objects.filter(booking_reference_id=booking_reference_id).last()
+        if booking:
+            booking.status = Booking.STATUS.cancelled
+            booking.save()
+            flight = Flight.objects.filter(id=booking.flight_id).last()
+            flight.available_seats = flight.available_seats+1
+            flight.save()
+            return Response({"success": 'true'})
+        else:
+            raise Exception("Invalid Booking Id")

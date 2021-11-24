@@ -8,6 +8,7 @@ import SignInSide from './SignInSide';
 import Album from './Album';
 import SearchForm from './SearchForm';
 import SearchResults from './SearchResults';
+import EmployeeView from './EmployeeView';
 function App() {
   return (
     // <div className="App">
@@ -49,6 +50,9 @@ function App() {
       </Route>
       <Route path="/searchresults">
         <SearchResults />
+      </Route>
+      <Route path="/employee">
+        <EmployeeView />
       </Route>
       {/* </Routes> */}
       {/* <Routes> */}

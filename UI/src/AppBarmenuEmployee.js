@@ -84,18 +84,6 @@ export default function PrimarySearchAppBar() {
   //const menuOptions = "My Trips","Search Flights", "Sign Out"
   const menuOptions = [
     {
-      label:"My Trips",
-      nav:"/mybookings"
-    },
-    {
-      label:"Search Flights",
-      nav:"/search"
-    },
-    {
-      label:"Rewards",
-      nav:"/rewards"
-    },
-    {
       label:"Sign Out",
       nav:"/signin"
     }

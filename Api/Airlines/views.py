@@ -122,3 +122,24 @@ def book_tickets(request):
                                  "flight_details": model_to_dict(booking.flight)}
                                 )
 
+
+@api_view(["POST"])
+def update_booking(request):
+    """
+    Books seat for a given booking
+    :param request:
+    :return:
+    """
+    if request.method == 'POST':
+        booking_reference_id = request.data.get('booking_reference_id')
+        seat_number = request.data.get('seat_number')
+        seat_type = request.data.get('seat_type')
+        booking = Booking.objects.filter(booking_reference_id=booking_reference_id, status=Booking.STATUS.booked).last()
+        if booking:
+            booking.seat_number = seat_number
+            booking.seat_type = seat_type
+            booking.save()
+            return Response({"success": 'true'})
+        else:
+            raise Exception("Invalid Booking Id")
+

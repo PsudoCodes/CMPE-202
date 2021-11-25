@@ -36,13 +36,14 @@ def signup(request):
         zip_code = info.get('zip_code')
         email = info.get('email')
         password = info.get('password')
+        userId = info.get('userId')
         existing_customer = Customer.objects.filter(Q(contact=contact) | Q(email=email)).last()
         if existing_customer:
             raise Exception("Already exists")
         else:
             customer = Customer.objects.create(first_name=first_name, contact=contact, last_name=last_name, city=city,
                                                address_line1=address_line1, address_line2=address_line2, email=email,
-                                               state=state, zip_code=zip_code)
+                                               state=state, zip_code=zip_code,userId=userId)
             User.objects.create_user(username=contact, email=email, password=password)
             return Response({"customer_id": customer.id})
 
@@ -133,6 +134,20 @@ def fetch_Rewards(request):
         userId = request.GET.get('userId')
     
         queried_reward = Rewards.objects.filter(userId=userId)
+
+        return Response({"results": queried_reward.values()})
+
+@api_view(["GET"])
+def confirm_flights(request):
+    """
+    returns rewards for a particular customer
+    :param request:
+    :return:
+    """
+    if request.method == 'GET':
+        userId = request.GET.get('userId')
+    
+        queried_reward = Booking.objects.filter(customer=customer)
 
         return Response({"results": queried_reward.values()})
 

@@ -18,6 +18,8 @@ import Review from './Review';
 import AppBarmenu from './AppBarmenu';
 import FlightSearchForm from './FlightSearchForm';
 import { useHistory } from 'react-router-dom';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
@@ -34,16 +36,111 @@ function Copyright() {
 const steps = ['Search for flights', 'abc'];
 
 function getStepContent(step) {
-    switch (step) {
-        case 0:
-          return <FlightSearchForm />;
-        case 1:
-          return <PaymentForm />;
-        case 2:
-          return <Review />;
-        default:
-          throw new Error('Unknown step');
-      }
+  switch (step) {
+    case 0:
+      return (
+        <React.Fragment>
+          <Typography variant="h6" gutterBottom>
+            Search for flights
+          </Typography>
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="from"
+                name="firstName"
+                label="From"
+                fullWidth
+                autoComplete="given-name"
+                variant="standard"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="to"
+                name="lastName"
+                label="To"
+                fullWidth
+                autoComplete="family-name"
+                variant="standard"
+              />
+            </Grid>
+            {/* <Grid item xs={12}>
+                  <TextField
+                    required
+                    id="address1"
+                    name="address1"
+                    label="Address line 1"
+                    fullWidth
+                    autoComplete="shipping address-line1"
+                    variant="standard"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    id="address2"
+                    name="address2"
+                    label="Address line 2"
+                    fullWidth
+                    autoComplete="shipping address-line2"
+                    variant="standard"
+                  />
+                </Grid> */}
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="start"
+                name="city"
+                label="Start Date"
+                fullWidth
+                autoComplete="shipping address-level2"
+                variant="standard"
+              />
+            </Grid>
+            {/* <Grid item xs={12} sm={6}>
+              <TextField
+                id="state"
+                name="state"
+                label="End Date"
+                fullWidth
+                variant="standard"
+              />
+            </Grid> */}
+            <Grid item xs={12} sm={6}>
+              <TextField
+                required
+                id="travel"
+                name="zip"
+                label="Travellers"
+                fullWidth
+                autoComplete="shipping postal-code"
+                variant="standard"
+              />
+            </Grid>
+            {/* <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    id="country"
+                    name="country"
+                    label="Country"
+                    fullWidth
+                    autoComplete="shipping country"
+                    variant="standard"
+                  />
+                </Grid> */}
+            {/* <Grid item xs={12}>
+                  <FormControlLabel
+                    control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
+                    label="Use this address for payment details"
+                  />
+                </Grid> */}
+          </Grid>
+        </React.Fragment>
+      );
+    default:
+      throw new Error('Unknown step');
+  }
 }
 
 const theme = createTheme();
@@ -53,7 +150,20 @@ export default function Checkout() {
   const history = useHistory();
   const handleNext = () => {
     //setActiveStep(activeStep + 1);
-    history.push('/searchresults');
+    let flight_search = {};
+    flight_search.from = document.getElementById("from").value;
+    flight_search.to = document.getElementById("to").value;
+    flight_search.start = document.getElementById("start").value;
+    console.log(flight_search);
+    //history.push('/searchresults');
+    localStorage.setItem(
+      "searchquery",
+      JSON.stringify(flight_search)
+    );
+    history.push({
+      pathname: '/searchresults',
+      state: flight_search
+    });
   };
 
   const handleBack = () => {
@@ -63,34 +173,12 @@ export default function Checkout() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {/* <AppBar
-        position="absolute"
-        color="default"
-        elevation={0}
-        sx={{
-          position: 'relative',
-          borderBottom: (t) => `1px solid ${t.palette.divider}`,
-        }}
-      >
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            Company name
-          </Typography>
-        </Toolbar>
-      </AppBar> */}
-      <AppBarmenu/>
+      <AppBarmenu />
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
           <Typography component="h1" variant="h4" align="center">
             FLIGHT SEARCH
           </Typography>
-          {/* <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
-            {steps.map((label) => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper> */}
           <React.Fragment>
             {activeStep === steps.length ? (
               <React.Fragment>

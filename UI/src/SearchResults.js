@@ -18,6 +18,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AppBarmenu from './AppBarmenu';
 import Modal from '@mui/material/Modal';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -62,7 +64,19 @@ export default function SearchResults() {
   const handleOpen = () => history.push('/checkout');
   const handleClose = () => setOpen(false);
   const handleUpdate = () => history.push('/checkout');
-  
+  let a = localStorage.getItem("searchquery");
+  console.log(JSON.parse(a));
+  const headers = {
+    'Content-Type': 'application/json',
+    //"Access-Control-Allow-Origin": "*",
+    //"Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS"
+};
+  axios.get('http://127.0.0.1:8000/search?from_location=BLR&to_location=DLH&start=2021-11-22 19:00:08',{headers})
+  .then(res => {
+    const per = res.data;
+    console.log("from the api",per);
+    // console.log()
+  })
   return (
     <ThemeProvider theme={theme}>
       <AppBarmenu />

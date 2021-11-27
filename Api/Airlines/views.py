@@ -13,7 +13,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 
 # project imports
-from .models import Flight, Booking, Customer
+from .models import Flight, Booking, Customer, Rewards, Mileage
 
 
 @api_view(["POST"])
@@ -43,22 +43,23 @@ def signup(request):
             customer = Customer.objects.create(first_name=first_name, contact=contact, last_name=last_name, city=city,
                                                address_line1=address_line1, address_line2=address_line2, email=email,
                                                state=state, zip_code=zip_code)
-            User.objects.create_user(username=contact, email=email, password=password)
+            User.objects.create_user(username=email, first_name=first_name, email=email, password=password)
             return Response({"customer_id": customer.id})
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def login(request):
     """
     :param request:  username, password
     :return:
     """
-    if request.METHOD == 'GET':
-        username = request.GET.get('username')
-        password = request.GET.get('password')
-        user = authenticate(username=username, password=password)
+    if request.method == 'POST':
+        email = request.data.get('email')
+        password = request.data.get('password')
+        user = authenticate(username=email, password=password)
         if user:
-            return Response({"success": True})
+            customer_id = Customer.objects.get(email=email).id
+            return Response({"customer_id": customer_id})
         return Response({"success": False})
 
 
@@ -196,6 +197,12 @@ def book_tickets(request):
                                                      expiry_date=expiry_date, name_on_card=name_on_card,
                                                      booking_reference_id=booking_reference_id
                                                      )
+                    mileage = Mileage.objects.filter(to_location=queried_flight.to_location,
+                                                         from_location=queried_flight.from_location).last()
+                    if not mileage:
+                        raise Exception(" No Mileage Found")
+
+                    Rewards.objects.create(user_id=customer_id, booking_id=booking.id, mileage_id=mileage.id)
                 except Exception as e:
                     return Response({"error": "Try again", "details": e})
                 queried_flight.available_seats = queried_flight.available_seats - 1
@@ -204,3 +211,23 @@ def book_tickets(request):
                                  "customer_details": model_to_dict(booking.customer),
                                  "flight_details": model_to_dict(booking.flight)}
                                 )
+
+
+@api_view(["GET"])
+def available_seats(request):
+    """
+    returns list of seats booked in the given flight
+    :param request:
+    :return:
+    """
+    if request.method == 'GET':
+        myset = {"1A", "1B", "1C", "1D", "1E", "1F", "2A", "2B", "2C", "2D", "2E", "2F" , "A4"}
+        flight_number = request.GET.get('flight_number')
+        flight = Flight.objects.filter(flight_number=flight_number).last()
+        booked_seats = list(Booking.objects.filter(flight_id=flight.id, status=Booking.STATUS.booked)
+                            . values_list('seat_number', flat=True))
+        print(myset)
+        print(set(booked_seats))
+        available_seats = myset - set(booked_seats)
+        return Response({"available_seats": available_seats})
+

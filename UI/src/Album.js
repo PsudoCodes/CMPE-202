@@ -18,6 +18,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AppBarmenu from './AppBarmenu';
 import Modal from '@mui/material/Modal';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -42,7 +44,7 @@ function Copyright() {
   );
 }
 
-const cards = [1];
+const cards = [1, 2, 3, 4];
 
 const theme = createTheme();
 
@@ -52,7 +54,23 @@ export default function Album() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleUpdate = () => history.push('/checkout');
-  
+  const [backendData, setBackendData] = useState([]);
+  let num = 2;
+  // localStorage.setItem(
+  //   "customerid",
+  //   JSON.stringify(2)
+  // );
+  let a = localStorage.getItem("customerid");
+  console.log(JSON.parse(a));
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8000/confirmed-flights?customer=' + a)
+      .then(res => {
+        const per = res.data;
+        console.log("from the api", per);
+        setBackendData(per.results);
+        // console.log()
+      })
+  }, []);
   return (
     <ThemeProvider theme={theme}>
       <AppBarmenu />
@@ -61,7 +79,7 @@ export default function Album() {
         <Container sx={{ py: 8 }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {cards.map((card) => (
+            {backendData.map((card) => (
               <Grid item key={card} xs={12} sm={6} md={4}>
                 <Card
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}

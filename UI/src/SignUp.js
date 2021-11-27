@@ -14,6 +14,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AppBarmenu from './AppBarmenu';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -31,19 +32,60 @@ const theme = createTheme();
 
 export default function SignUp() {
     const history = useHistory();
+    const headers = {
+        'Content-Type': 'application/json',
+        //"Access-Control-Allow-Origin": "*",
+        //"Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS"
+      };
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         // eslint-disable-next-line no-console
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+        // console.log({
+        //     email: data.get('email'),
+        //     password: data.get('password'),
+        // });
+        const reqbody = {
+            first_name: "ani",
+            last_name: "S",
+            contact: "+12198989",
+            email: "test1@gmail.com",
+            address_line1: "123 ABC",
+            address_line2: "XYZ",
+            city: "San Jose",
+            state: "California",
+            zip_code: "121212",
+            password: "Admin@1234"
+        };
+        reqbody.first_name = document.getElementById("firstName").value;
+        reqbody.last_name = document.getElementById("lastName").value;
+        reqbody.contact = document.getElementById("contact").value;
+        reqbody.email = document.getElementById("email").value;
+        reqbody.password = document.getElementById("password").value;
+        console.log(reqbody);
+        axios.post('http://127.0.0.1:8000/enroll', reqbody)
+            .then(res => {
+                const per = res.data;
+                console.log("from the api", per);
+                //setBackendData(per.results);
+                // console.log()
+                localStorage.setItem(
+                    "customerid",
+                    JSON.stringify(per.customer_id)
+                );
+                history.push('/search');     
+            })
+        // localStorage.setItem(
+        //     "customerid",
+        //     JSON.stringify(flight_search)
+        // );
+        // history.push('/search');
+
     };
 
     const handleSingIn = (event) => {
         //console.log("sds");
-        
+
         history.push('/signin');
 
     }

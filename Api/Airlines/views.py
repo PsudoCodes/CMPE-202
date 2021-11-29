@@ -231,3 +231,30 @@ def available_seats(request):
         available_seats = myset - set(booked_seats)
         return Response({"available_seats": available_seats})
 
+
+@api_view(["POST"])
+def add_flight(request):
+    """
+    adds new flight to system
+    :param request:
+    :return:
+    """
+    if request.method == 'POST':
+        info = json.loads(request.body)
+        flight_number = ''.join([random.choice(string.ascii_uppercase + string.digits) for _ in range(5)])
+        data = {
+            "airline": info.get('airline'),
+            "total_seats": info.get('total_seats'),
+            "available_seats": info.get('available_seats'),
+            "price": info.get('price'),
+            "from_location": info.get('from_location'),
+            "to_location": info.get('to_location'),
+            "duration": info.get('duration'),
+            "departure": datetime.fromisoformat(info.get('departure')),
+            "arrival": datetime.fromisoformat(info.get('arrival')),
+            "flight_number": flight_number
+        }
+
+        Flight.objects.create(**data)
+        return Response({"success": 'True'})
+

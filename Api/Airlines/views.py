@@ -306,3 +306,22 @@ def reset_password(request):
             user.save()
             return Response({"success": True})
         return Response({"error": "Invalid username or password!"})
+
+
+@api_view(["GET"])
+def confirm_flights(request):
+    """
+    returns rewards for a particular customer
+    :param request:
+    :return:
+    """
+    if request.method == 'GET':
+        customer = request.GET.get('customer')
+        bookings = Booking.objects.filter(customer_id=customer).select_related('flight')
+        response = []
+        for booking in bookings:
+            elem = {**model_to_dict(booking), **model_to_dict(booking.flight)}
+            response.append(elem)
+        print(type(response))
+        return Response({"results": response})
+

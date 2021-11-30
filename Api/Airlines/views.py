@@ -258,3 +258,20 @@ def add_flight(request):
         Flight.objects.create(**data)
         return Response({"success": 'True'})
 
+
+@api_view(['GET'])
+def reset_password(request):
+    """
+    :param request: username, old_password, new_password
+    :return:
+    """
+    if request.METHOD == 'GET':
+        username = request.GET.get('username')
+        password = request.GET.get('old_password')
+        new_password = request.GET.get('new_password')
+        user = authenticate(username=username, password=password)
+        if user:
+            user.set_password(new_password)
+            user.save()
+            return Response({"success": True})
+        return Response({"error": "Invalid username or password!"})

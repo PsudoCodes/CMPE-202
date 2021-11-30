@@ -325,3 +325,17 @@ def confirm_flights(request):
         print(type(response))
         return Response({"results": response})
 
+
+@api_view(["GET"])
+def fetch_Rewards(request):
+    """
+    returns rewards for a particular customer
+    :param request:
+    :return:
+    """
+    if request.method == 'GET':
+        customer = request.GET.get('customer')
+
+        booked_seats = sum(list(Rewards.objects.filter(user_id=customer)
+                    .values_list('mileage__mileage_points', flat=True)))
+        return Response({"results": booked_seats})

@@ -23,6 +23,8 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 const useStyles = makeStyles({
   list: {
@@ -78,6 +80,7 @@ export default function PrimarySearchAppBar() {
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const [backendData, setBackendData] = useState(0);
   const [state, setState] = React.useState({
     left: false,
   });
@@ -92,7 +95,7 @@ export default function PrimarySearchAppBar() {
       nav:"/search"
     },
     {
-      label:"Rewards",
+      label:"Rewards: "+ JSON.stringify({backendData}.backendData),
       nav:"/rewards"
     },
     {
@@ -174,6 +177,8 @@ export default function PrimarySearchAppBar() {
           <ListItem button key={menu.label} component={Link} to={menu.nav} >
             {/* <ListItemIcon className={classes.listItem}>{listItem.listIcon}</ListItemIcon> */}
             <ListItemText primary={menu.label} />
+            {/* <ListItemText primary=4 /> */}
+
           </ListItem>
         ))}
       </List>
@@ -253,7 +258,17 @@ export default function PrimarySearchAppBar() {
       </MenuItem>
     </Menu>
   );
-
+  useEffect(() => {
+    let a = localStorage.getItem("customerid");
+    console.log(JSON.parse(a));
+    axios.get('http://127.0.0.1:8000/fetch-rewards?customer=' + a)
+      .then(res => {
+        const per = res.data;
+        console.log("from the api", per);
+        setBackendData(per.results);
+        // console.log()
+      })
+  }, []);
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">

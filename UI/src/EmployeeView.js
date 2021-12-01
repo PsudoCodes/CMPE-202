@@ -43,7 +43,7 @@ function Copyright() {
   );
 }
 
-const cards = [1];
+const cards = [];
 
 const theme = createTheme();
 

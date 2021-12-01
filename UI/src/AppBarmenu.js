@@ -266,6 +266,10 @@ export default function PrimarySearchAppBar() {
         const per = res.data;
         console.log("from the api", per);
         setBackendData(per.results);
+        localStorage.setItem(
+          "reward-points",
+          per.results
+        );
         // console.log()
       })
   }, []);

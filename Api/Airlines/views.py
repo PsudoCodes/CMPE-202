@@ -139,14 +139,14 @@ def fetch_Rewards(request):
         return Response({"results": queried_reward.values()})
 
 @api_view(["GET"])
-def confirm_flights(request):
+def fetch_flights(request):
     """
-    returns rewards for a particular customer
+    returns confirmed booking for a particular customer
     :param request:
     :return:
     """
     if request.method == 'GET':
-        userId = request.GET.get('userId')
+        customer = request.GET.get('customer')
     
         queried_reward = Booking.objects.filter(customer=customer)
 

@@ -140,7 +140,7 @@ def fetch_Rewards(request):
 @api_view(["GET"])
 def confirm_flights(request):
     """
-    returns rewards for a particular customer
+    returns confirmed booking for a particular customer
     :param request:
     :return:
     """

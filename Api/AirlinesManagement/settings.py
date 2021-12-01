@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
@@ -25,8 +24,7 @@ SECRET_KEY = ')l-m$#76*g_*$*s5=#9*ii+)nmcq!d%5@%*py4mtjwn0d1my4$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['3.14.70.168', 'localhost', '127.0.0.1']
 
 # Application definition
 
@@ -73,7 +71,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'AirlinesManagement.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
@@ -91,9 +88,9 @@ DATABASES = {
 CORS_ORIGIN_ALLOW_ALL = True;
 
 CORS_ORIGIN_WHITELIST = (
-'http://localhost:3000',  # for localhost (REACT Default)
-'http://127.0.0.1:8000'
-#'http://192.168.10.45:3000', # for network
+    'http://localhost:3000',  # for localhost (REACT Default)
+    'http://127.0.0.1:8000'
+    'http://3.14.70.168:3000',
 )
 
 # Password validation
@@ -114,7 +111,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -127,7 +123,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/

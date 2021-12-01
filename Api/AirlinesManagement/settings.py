@@ -90,7 +90,6 @@ CORS_ORIGIN_ALLOW_ALL = True;
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',  # for localhost (REACT Default)
     'http://127.0.0.1:8000'
-    'http://3.14.70.168:3000',
 )
 
 # Password validation

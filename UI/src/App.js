@@ -9,6 +9,7 @@ import Album from './Album';
 import SearchForm from './SearchForm';
 import SearchResults from './SearchResults';
 import EmployeeView from './EmployeeView';
+import EmployeeSearchForm from './EmployeeSearchForm';
 function App() {
   return (
     // <div className="App">
@@ -47,6 +48,9 @@ function App() {
       </Route>
       <Route path="/search">
         <SearchForm />
+      </Route>
+      <Route path="/searchemployee">
+        <EmployeeSearchForm />
       </Route>
       <Route path="/searchresults">
         <SearchResults />

@@ -56,10 +56,12 @@ export default function Album() {
   const handleUpdate = () => history.push('/checkout');
   const [backendData, setBackendData] = useState([]);
   let num = 2;
-  // localStorage.setItem(
-  //   "customerid",
-  //   JSON.stringify(2)
-  // );
+  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+  localStorage.setItem(
+    "customerid",
+    JSON.stringify(2)
+  );
   let a = localStorage.getItem("customerid");
   console.log(JSON.parse(a));
   useEffect(() => {
@@ -97,17 +99,23 @@ export default function Album() {
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      SJC ----> NYC
+                      {/* SJC ----> NYC */}
+                      {card.from_location} ----> {card.to_location}
                     </Typography>
                     <Typography>
                       {/* This is a media card. You can use this section to describe the
                       content. */}
                       <p>
-                        Date: 16th December, 2021
+                        Duration: {Math.floor(card.duration) / 60} hrs {(card.duration) % 60} mins
+                        {/* Date: 16th December, 2021 */}
                       </p>
                       <p>
-                        Seat Number: 20G<br />
-                        Seat Type: Economy
+                        {/* Seat Number: 20G<br />
+                        Seat Type: Economy */}
+                        Departure date: {new Date(card.departure).getDate()} {months[new Date(card.departure).getMonth()]} {new Date(card.departure).getFullYear()}
+                      </p>
+                      <p>
+                        Departure time: {new Date(card.departure).getHours()}:{new Date(card.departure).getMinutes()}:{new Date(card.departure).getSeconds()}
                       </p>
                     </Typography>
                   </CardContent>

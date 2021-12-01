@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Airlines',
+    'corsheaders',
     'rest_framework'
 ]
 
@@ -49,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'AirlinesManagement.urls'
@@ -86,6 +88,13 @@ DATABASES = {
     }
 }
 
+CORS_ORIGIN_ALLOW_ALL = True;
+
+CORS_ORIGIN_WHITELIST = (
+'http://localhost:3000',  # for localhost (REACT Default)
+'http://127.0.0.1:8000'
+#'http://192.168.10.45:3000', # for network
+)
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -124,3 +133,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')

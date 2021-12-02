@@ -53,7 +53,10 @@ export default function Album() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const handleUpdate = () => history.push('/checkout');
+  const handleUpdate = (e) => {
+    localStorage.setItem("update_booking_id",e.booking_reference_id)
+    history.push('/updateBooking')
+  };
   const [backendData, setBackendData] = useState([]);
   let num = 2;
   const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -120,7 +123,7 @@ export default function Album() {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button onClick={handleUpdate} size="small">Update Reservation</Button>
+                    <Button onClick={()=> handleUpdate(card)} size="small">Update Reservation</Button>
                     <Button onClick={handleOpen} size="small">Cancel Reservation</Button>
                   </CardActions>
                 </Card>

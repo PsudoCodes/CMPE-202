@@ -10,6 +10,7 @@ import SearchForm from './SearchForm';
 import SearchResults from './SearchResults';
 import EmployeeView from './EmployeeView';
 import EmployeeSearchForm from './EmployeeSearchForm';
+import UpdateBooking from './updateBooking';
 function App() {
   return (
     // <div className="App">
@@ -58,9 +59,9 @@ function App() {
       <Route path="/employee">
         <EmployeeView />
       </Route>
-      {/* <Route path="/updateBooking">
+      <Route path="/updateBooking">
         <UpdateBooking />
-      </Route> */}
+      </Route>
       {/* </Routes> */}
       {/* <Routes> */}
       {/* <Route path="">

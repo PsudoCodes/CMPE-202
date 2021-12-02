@@ -58,9 +58,9 @@ function App() {
       <Route path="/employee">
         <EmployeeView />
       </Route>
-      <Route path="/updateBooking">
+      {/* <Route path="/updateBooking">
         <UpdateBooking />
-      </Route>
+      </Route> */}
       {/* </Routes> */}
       {/* <Routes> */}
       {/* <Route path="">

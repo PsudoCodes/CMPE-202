@@ -51,8 +51,10 @@ export default function Album() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const handleUpdate = () => history.push('/checkout');
-  
+  const val = "FNXBD7WH"
+  const handleUpdate = () => history.push('/UpdateBooking');
+  localStorage.setItem("update_customer_id" , "1")
+  localStorage.setItem("update_booking_id" , val)
   return (
     <ThemeProvider theme={theme}>
       <AppBarmenu />

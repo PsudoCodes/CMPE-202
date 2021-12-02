@@ -11,6 +11,7 @@ import SearchResults from './SearchResults';
 import EmployeeView from './EmployeeView';
 import EmployeeSearchForm from './EmployeeSearchForm';
 import UpdateBooking from './updateBooking';
+import AlbumCancel from './AlbumCancel';
 function App() {
   return (
     // <div className="App">
@@ -61,6 +62,9 @@ function App() {
       </Route>
       <Route path="/updateBooking">
         <UpdateBooking />
+      </Route>
+      <Route path="/mybookingsnew">
+        <AlbumCancel />
       </Route>
       {/* </Routes> */}
       {/* <Routes> */}

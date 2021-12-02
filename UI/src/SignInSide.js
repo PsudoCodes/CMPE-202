@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AppBarmenu from './AppBarmenu';
 import { useHistory } from 'react-router-dom';
 import axios from "axios";
+import * as configData from "./configurl.json";
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -40,44 +41,47 @@ export default function SignInSide() {
     React.useEffect(() => {
         // Set errorMessage only if text is equal or bigger than MAX_LENGTH
         if (!regex.test(text)) {
-          setErrorMessage(
-            "Please enter a valid Email ID"
-          );
+            setErrorMessage(
+                "Please enter a valid Email ID"
+            );
         }
-      }, [text]);
-      React.useEffect(() => {
+    }, [text]);
+    React.useEffect(() => {
 
         if (regex.test(text) && errorMessage) {
-          setErrorMessage("");
+            setErrorMessage("");
         }
     }, [text, errorMessage]);
     const history = useHistory();
-    var lengthError=  false;
+    var lengthError = false;
     const handleSubmit = (event) => {
         event.preventDefault();
+        console.log(configData.default);
         const data = new FormData(event.currentTarget);
 
         // let val  = (def) ? false : (!regex.test(text))
-        let val =  false
-        if(def){
-          val = false
-        }else{
-          val  = regex.test(text)
+        let val = false
+        if (def) {
+            val = false
+        } else {
+            val = regex.test(text)
         }
-        lengthError = (document.getElementById("password").value.length > 0)?true :false
-        if(lengthError && val){
-          var requestBody = {
-              "email":document.getElementById("email").value,
-              "password":document.getElementById("password").value
+        lengthError = (document.getElementById("password").value.length > 0) ? true : false
+        if (lengthError && val) {
+            var requestBody = {
+                "email": document.getElementById("email").value,
+                "password": document.getElementById("password").value
             }
-          axios.post("http://127.0.0.1:8000/login",requestBody)
-          .then(res =>{
-            const result  = res.data.customer_id;
-            localStorage.setItem("customerid", JSON.stringify(result))
-            history.push('/checkout');
-          })
+            // axios.post("http://127.0.0.1:8000/login", requestBody)
+            axios.post("http://" + configData.default.LOCAL_URL + ":8000/login", requestBody)
 
-        }else{
+                .then(res => {
+                    const result = res.data.customer_id;
+                    localStorage.setItem("customerid", JSON.stringify(result))
+                    history.push('/mybookings');
+                })
+
+        } else {
 
         }
 
@@ -121,7 +125,7 @@ export default function SignInSide() {
                         </Typography>
                         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                             <TextField
-                                error={(def)? false:( !regex.test(text))}
+                                error={(def) ? false : (!regex.test(text))}
                                 margin="normal"
                                 required
                                 fullWidth
@@ -131,7 +135,7 @@ export default function SignInSide() {
                                 autoComplete="email"
                                 autoFocus
                                 helperText={errorMessage}
-                                onChange={(e) => {setText(e.target.value);def = false }}
+                                onChange={(e) => { setText(e.target.value); def = false }}
                             />
                             <TextField
                                 margin="normal"
@@ -145,14 +149,13 @@ export default function SignInSide() {
                                 error={lengthError}
                                 autoComplete="current-password"
                                 onChange={(e) => {
-                                  if(e.target.value && e.target.value.length > 0)
-                                   {
-                                     lengthError = false
-                                   }
-                                   else{
-                                      lengthError = false
+                                    if (e.target.value && e.target.value.length > 0) {
+                                        lengthError = false
                                     }
-                                  }}
+                                    else {
+                                        lengthError = false
+                                    }
+                                }}
                             />
                             <FormControlLabel
                                 control={<Checkbox value="remember" color="primary" />}

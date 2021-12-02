@@ -26,6 +26,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import * as configData from "./configurl.json";
 const useStyles = makeStyles({
   list: {
     width: 250,
@@ -87,20 +88,20 @@ export default function PrimarySearchAppBar() {
   //const menuOptions = "My Trips","Search Flights", "Sign Out"
   const menuOptions = [
     {
-      label:"My Trips",
-      nav:"/mybookings"
+      label: "My Trips",
+      nav: "/mybookings"
     },
     {
-      label:"Search Flights",
-      nav:"/search"
+      label: "Search Flights",
+      nav: "/search"
     },
     {
-      label:"Rewards: "+ JSON.stringify({backendData}.backendData),
-      nav:"/rewards"
+      label: "Rewards: " + JSON.stringify({ backendData }.backendData),
+      nav: "/rewards"
     },
     {
-      label:"Sign Out",
-      nav:"/signin"
+      label: "Sign Out",
+      nav: "/signin"
     }
   ];
 
@@ -173,7 +174,7 @@ export default function PrimarySearchAppBar() {
       <List>
         {/* {["My Trips","Search Flights", "Sign Out"].map((value) => ( */}
         {menuOptions.map((menu) => (
-          
+
           <ListItem button key={menu.label} component={Link} to={menu.nav} >
             {/* <ListItemIcon className={classes.listItem}>{listItem.listIcon}</ListItemIcon> */}
             <ListItemText primary={menu.label} />
@@ -261,7 +262,7 @@ export default function PrimarySearchAppBar() {
   useEffect(() => {
     let a = localStorage.getItem("customerid");
     console.log(JSON.parse(a));
-    axios.get('http://127.0.0.1:8000/fetch-rewards?customer=' + a)
+    axios.get('http://' + configData.default.LOCAL_URL + ':8000/fetch-rewards?customer=' + a)
       .then(res => {
         const per = res.data;
         console.log("from the api", per);

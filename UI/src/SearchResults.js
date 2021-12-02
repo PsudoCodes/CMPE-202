@@ -20,7 +20,7 @@ import AppBarmenu from './AppBarmenu';
 import Modal from '@mui/material/Modal';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-
+import * as configData from "./configurl.json";
 const style = {
   position: 'absolute',
   top: '50%',
@@ -67,7 +67,8 @@ export default function SearchResults() {
   const handleClose = () => setOpen(false);
   const handleUpdate = () => history.push('/checkout');
   let a = localStorage.getItem("searchquery");
-  console.log(JSON.parse(a));
+  console.log("hi from api", JSON.parse(a).from);
+  // console.log("from a", a.from_location)
   const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
   const [backendData, setBackendData] = useState([]);
@@ -84,7 +85,7 @@ export default function SearchResults() {
   //     // console.log()
   //   })
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/search?from_location=BLR&to_location=DLH&start=2021-11-22 19:00:08&drop=2021-11-22 22:00:08')
+    axios.get('http://' + configData.default.LOCAL_URL + ':8000/search?from_location=' + JSON.parse(a).from + '&to_location=' + JSON.parse(a).to + '&start=2021-11-22 19:00:08&drop=2021-11-22 22:00:08')
       .then(res => {
         const per = res.data;
         console.log("from the api", per);
@@ -101,7 +102,7 @@ export default function SearchResults() {
           {/* End hero unit */}
           <Grid container spacing={4}>
             {backendData.map((card) => (
-            // {/* {cards.map((card) => ( */}
+              // {/* {cards.map((card) => ( */}
               <Grid item key={card} xs={12} sm={6} md={4}>
                 <Card
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
@@ -118,7 +119,7 @@ export default function SearchResults() {
                     alt="random"
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
-                  <Typography gutterBottom variant="h5" component="h2">
+                    <Typography gutterBottom variant="h5" component="h2">
                       {/* SJC ----> NYC */}
                       {card.from_location} ----> {card.to_location}
                     </Typography>
@@ -135,7 +136,8 @@ export default function SearchResults() {
                         Departure date: {new Date(card.departure).getDate()} {months[new Date(card.departure).getMonth()]} {new Date(card.departure).getFullYear()}
                       </p>
                       <p>
-                        Departure time: {new Date(card.departure).getHours()}:{new Date(card.departure).getMinutes()}:{new Date(card.departure).getSeconds()}
+                        {/* Departure time: {new Date(card.departure).getHours()}:{new Date(card.departure).getMinutes()}:{new Date(card.departure).getSeconds()} */}
+                        Departure time: 11:00:00
                       </p>
                     </Typography>
                   </CardContent>

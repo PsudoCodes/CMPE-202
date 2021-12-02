@@ -27,6 +27,7 @@ import Checkbox from '@mui/material/Checkbox';
 import axios from "axios"
 import { useState } from 'react';
 import AppBarmenu from './AppBarmenu';
+import { useEffect } from 'react';
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
@@ -70,7 +71,10 @@ const personalObject = {}
 const bookingObject = {}
 export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0);
-
+  let mockSeats = [
+    1, 2, 3
+  ]
+  const [backendData, setBackendData] = useState([]);
   //payment form
   const [age, setAge] = React.useState('Choose a seat number');
 
@@ -83,9 +87,9 @@ export default function Checkout() {
     console.log(JSON.parse(a));
     let newValue = rewards - a;
     setRewards(newValue);
-};
+  };
   const handleNext = (id) => {
-    if(activeStep == 0){
+    if (activeStep == 0) {
       personalObject.firstName = document.getElementById("firstName").value
       personalObject.lastName = document.getElementById("lastName").value || ""
       personalObject.address1 = document.getElementById("address1").value || ""
@@ -96,7 +100,7 @@ export default function Checkout() {
       personalObject.zip = document.getElementById("zip").value || ""
     }
 
-    if(activeStep == 1){
+    if (activeStep == 1) {
       bookingObject.seatNumber = document.getElementById("seatNumber").value || ""
       bookingObject.seatType = document.getElementById("seatType").value || ""
       bookingObject.cardName = document.getElementById("cardName").value || ""
@@ -105,9 +109,9 @@ export default function Checkout() {
       bookingObject.cvv = document.getElementById("cvv").value || ""
     }
 
-    if(activeStep == steps.length-1){
+    if (activeStep == steps.length - 1) {
 
-      var requestBody  ={
+      var requestBody = {
         "flight_number": "F7ZQ8",
         "customer_id": localStorage.getItem("customerid"),
         "amount": 3500,
@@ -117,12 +121,12 @@ export default function Checkout() {
         "cvv": bookingObject.cvv
       }
 
-      axios.post("http://127.0.0.1:8000/book",requestBody)
-      .then(res =>{
-        const result  = res.data;
-        localStorage.setItem("booking_details", JSON.stringify(result))
-        // history.push('/checkout');
-      })
+      axios.post("http://127.0.0.1:8000/book", requestBody)
+        .then(res => {
+          const result = res.data;
+          localStorage.setItem("booking_details", JSON.stringify(result))
+          // history.push('/checkout');
+        })
     }
 
     setActiveStep(activeStep + 1);
@@ -139,10 +143,20 @@ export default function Checkout() {
   const handleChangeSeat = (event) => {
     setSeat(event.target.value);
   };
+  useEffect(() => {
+    let a = 20220;
+    axios.get('http://127.0.0.1:8000/available-seats?flight_number=' + a)
+      .then(res => {
+        const per = res.data;
+        console.log("from the seat api", per);
+        setBackendData(per.results);
+        // console.log()
+      })
+  }, []);
   function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return (
+    switch (step) {
+      case 0:
+        return (
           <React.Fragment>
             <Typography variant="h6" gutterBottom>
               Personal Details
@@ -242,8 +256,8 @@ export default function Checkout() {
             </Grid>
           </React.Fragment>
         );
-    case 1:
-      return (
+      case 1:
+        return (
           <React.Fragment>
             <Typography variant="h6" gutterBottom>
               Booking and Payment
@@ -258,7 +272,7 @@ export default function Checkout() {
                   autoComplete="cc-name"
                   variant="standard"
                 /> */}
-                <div style={{width: "100px"}}>
+                <div style={{ width: "100px" }}>
                   <Select
                     labelId="demo-simple-select-label"
                     id="seatType"
@@ -267,8 +281,22 @@ export default function Checkout() {
                     onChange={handleChange}
                   >
                     <MenuItem value='Choose a seat number'>Choose a seat number</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    {/* {backendData.map((card) => ( */}
+                       <MenuItem value={20}>1D</MenuItem>
+                       <MenuItem value={30}>1B</MenuItem>
+                       <MenuItem value={30}>2C</MenuItem>
+                       <MenuItem value={30}>1E</MenuItem>
+                       <MenuItem value={30}>2B</MenuItem>
+                       <MenuItem value={30}>2A</MenuItem>
+                       <MenuItem value={30}>1A</MenuItem>
+                       <MenuItem value={30}>A4</MenuItem>
+                       <MenuItem value={30}>2E</MenuItem>
+                       <MenuItem value={30}>2D</MenuItem>
+                       <MenuItem value={30}>1F</MenuItem>
+                       <MenuItem value={30}>1C</MenuItem>
+                       <MenuItem value={30}>2F</MenuItem>
+                      {/* <MenuItem value={20}>{card}</MenuItem> */}
+                    {/* ))} */}
                   </Select>
                 </div>
               </Grid>
@@ -281,7 +309,7 @@ export default function Checkout() {
                   autoComplete="cc-number"
                   variant="standard"
                 /> */}
-                <div style={{width: "100px"}}>
+                <div style={{ width: "100px" }}>
                   <Select
                     labelId="demo-simple-select-label"
                     id="seatNumber"
@@ -290,8 +318,8 @@ export default function Checkout() {
                     onChange={handleChangeSeat}
                   >
                     <MenuItem value='Choose seat type'>Choose seat type</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={20}>Business</MenuItem>
+                    <MenuItem value={30}>Economy</MenuItem>
                   </Select>
                 </div>
               </Grid>
@@ -344,30 +372,30 @@ export default function Checkout() {
               </Grid> */}
             </Grid>
           </React.Fragment>
-)
-    case 2:
-      return (
-        <React.Fragment>
-          <Typography variant="h6" gutterBottom>
-            Order summary
-          </Typography>
-          <List disablePadding>
-            {/* {products.map((product) => (
+        )
+      case 2:
+        return (
+          <React.Fragment>
+            <Typography variant="h6" gutterBottom>
+              Order summary
+            </Typography>
+            <List disablePadding>
+              {/* {products.map((product) => (
               <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
                 <ListItemText primary={product.name} secondary={product.desc} />
                 <Typography variant="body2">{product.price}</Typography>
               </ListItem>
             ))} */}
 
-            <ListItem sx={{ py: 1, px: 0 }}>
-              <ListItemText primary="Total" />
-              <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-              ${rewards}
-              </Typography>
-            </ListItem>
-          </List>
-          <Grid container spacing={2}>
-            {/* <Grid item xs={12} sm={6}>
+              <ListItem sx={{ py: 1, px: 0 }}>
+                <ListItemText primary="Total" />
+                <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
+                  ${rewards}
+                </Typography>
+              </ListItem>
+            </List>
+            <Grid container spacing={2}>
+              {/* <Grid item xs={12} sm={6}>
               <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
                 Shipping
               </Typography>
@@ -391,19 +419,19 @@ export default function Checkout() {
                 ))}
               </Grid>
             </Grid> */}
-          </Grid>
-          <Grid item xs={12}>
-            <FormControlLabel
-              control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-              label="Use my reward points" onClick={handleRewardClick}
-            />
-          </Grid>
-        </React.Fragment>
-      )
-    default:
-      throw new Error('Unknown step');
+            </Grid>
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
+                label="Use my reward points" onClick={handleRewardClick}
+              />
+            </Grid>
+          </React.Fragment>
+        )
+      default:
+        throw new Error('Unknown step');
+    }
   }
-}
 
   return (
     <ThemeProvider theme={theme}>
@@ -423,7 +451,7 @@ export default function Checkout() {
           </Typography>
         </Toolbar>
       </AppBar> */}
-      <AppBarmenu/>
+      <AppBarmenu />
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
           <Typography component="h1" variant="h4" align="center">

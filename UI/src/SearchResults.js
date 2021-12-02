@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import CameraIcon from '@mui/icons-material/PhotoCamera';
@@ -47,14 +48,15 @@ function Copyright() {
 //const cards = [1,2];
 const cards = [
   {
-    date:"19th December, 2021",
-    seatType:"Business"
+    date: "19th December, 2021",
+    seatType: "Business"
   },
   {
-    date:"19th December, 2021",
-    seatType:"Economy"
+    date: "19th December, 2021",
+    seatType: "Economy"
   }
 ]
+//const cards = []
 
 const theme = createTheme();
 
@@ -66,17 +68,30 @@ export default function SearchResults() {
   const handleUpdate = () => history.push('/checkout');
   let a = localStorage.getItem("searchquery");
   console.log(JSON.parse(a));
+  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+  const [backendData, setBackendData] = useState([]);
+
   const headers = {
     'Content-Type': 'application/json',
     //"Access-Control-Allow-Origin": "*",
     //"Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS"
-};
-  axios.get('http://127.0.0.1:8000/search?from_location=BLR&to_location=DLH&start=2021-11-22 19:00:08',{headers})
-  .then(res => {
-    const per = res.data;
-    console.log("from the api",per);
-    // console.log()
-  })
+  };
+  // axios.get('http://127.0.0.1:8000/search?from_location=BLR&to_location=DLH&start=2021-11-22 19:00:08', { headers })
+  //   .then(res => {
+  //     const per = res.data;
+  //     console.log("from the api", per);
+  //     // console.log()
+  //   })
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8000/search?from_location=BLR&to_location=DLH&start=2021-11-22 19:00:08&drop=2021-11-22 22:00:08')
+      .then(res => {
+        const per = res.data;
+        console.log("from the api", per);
+        setBackendData(per.results);
+        // console.log()
+      })
+  }, []);
   return (
     <ThemeProvider theme={theme}>
       <AppBarmenu />
@@ -85,7 +100,8 @@ export default function SearchResults() {
         <Container sx={{ py: 8 }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {cards.map((card) => (
+            {backendData.map((card) => (
+            // {/* {cards.map((card) => ( */}
               <Grid item key={card} xs={12} sm={6} md={4}>
                 <Card
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
@@ -102,25 +118,29 @@ export default function SearchResults() {
                     alt="random"
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      SJC ----> PIT
+                  <Typography gutterBottom variant="h5" component="h2">
+                      {/* SJC ----> NYC */}
+                      {card.from_location} ----> {card.to_location}
                     </Typography>
                     <Typography>
                       {/* This is a media card. You can use this section to describe the
                       content. */}
                       <p>
-                        {/* Date: 19th December, 2021 */}
-                        {card.date}
+                        Duration: {Math.floor(card.duration) / 60} hrs {(card.duration) % 60} mins
+                        {/* Date: 16th December, 2021 */}
                       </p>
                       <p>
-                        {/* Seat Number: 20G<br /> */}
-                        {/* Seat Type: Economy */}
-                        Seat Type: {card.seatType}
+                        {/* Seat Number: 20G<br />
+                        Seat Type: Economy */}
+                        Departure date: {new Date(card.departure).getDate()} {months[new Date(card.departure).getMonth()]} {new Date(card.departure).getFullYear()}
+                      </p>
+                      <p>
+                        Departure time: {new Date(card.departure).getHours()}:{new Date(card.departure).getMinutes()}:{new Date(card.departure).getSeconds()}
                       </p>
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button style={{visibility: "hidden"}} onClick={handleUpdate} size="small">Update Reservation</Button>
+                    <Button style={{ visibility: "hidden" }} onClick={handleUpdate} size="small">Update Reservation</Button>
                     <Button onClick={handleOpen} size="small">Book</Button>
                   </CardActions>
                 </Card>

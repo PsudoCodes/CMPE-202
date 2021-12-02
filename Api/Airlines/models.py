@@ -5,7 +5,6 @@ from model_utils import Choices
 
 
 class Customer(models.Model):
-   
     first_name = models.CharField(max_length=138)
     last_name = models.CharField(max_length=138)
     contact = models.CharField(max_length=64, unique=True)
@@ -30,7 +29,6 @@ class Flight(models.Model):
     arrival = models.DateTimeField()
 
 
-
 class Booking(models.Model):
     STATUS = Choices(('booked', 'BOOKED'), ('cancelled', 'CANCELLED'))
     booking_reference_id = models.CharField(max_length=138, unique=True)
@@ -45,8 +43,14 @@ class Booking(models.Model):
     expiry_date = models.DateTimeField()
     cvv = models.IntegerField()
 
-class Rewards(models.Model):
-    id = models.AutoField(primary_key=True)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    booking_id = models.ForeignKey(Flight, on_delete=models.CASCADE)
+
+class Mileage(models.Model):
+    from_location = models.CharField(max_length=183)
+    to_location = models.CharField(max_length=183)
     mileage_points = models.IntegerField()
+
+
+class Rewards(models.Model):
+    user = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    booking = models.ForeignKey(Booking, on_delete=models.CASCADE)
+    mileage = models.ForeignKey(Mileage, on_delete=models.CASCADE)

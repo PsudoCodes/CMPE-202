@@ -123,10 +123,10 @@ export default function UpdateBooking() {
     }
 
     if (activeStep == 1) {
-      bookingObject.seatNumber = document.getElementById("seatNumber").value
-      bookingObject.seatType = document.getElementById("seatType").value
-      // bookingObject.seatNumber = "ab"
-      // bookingObject.seatType = "cs"
+      // bookingObject.seatNumber = document.getElementById("seatNumber").value
+      // bookingObject.seatType = document.getElementById("seatType").value
+      bookingObject.seatNumber = "1D"
+      bookingObject.seatType = "Economy"
       bookingObject.cardName = document.getElementById("cardName").value || ""
       bookingObject.cardNumber = document.getElementById("cardNumber").value || ""
       bookingObject.expDate = document.getElementById("expDate").value || ""
@@ -301,13 +301,13 @@ export default function UpdateBooking() {
                 <div style={{ width: "100px" }}>
                   <Select
                     labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={age}
+                    id="seatNumber"
                     label="Agesgsdfgsdfgsdgfsfdg"
                     onChange={handleChange}
+                    value=""
                   >
                     <MenuItem value='Choose a seat number'>Choose a seat number</MenuItem>
-                    <MenuItem value={20}>1D</MenuItem>
+                    <MenuItem value="1D">1D</MenuItem>
                     {/* <MenuItem value={30}>Thirty</MenuItem> */}
                   </Select>
                 </div>
@@ -324,14 +324,13 @@ export default function UpdateBooking() {
                 <div style={{ width: "100px" }}>
                   <Select
                     labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={seat}
+                    id="seatType"
                     label="Agesgsdfgsdfgsdgfsfdg"
                     onChange={handleChangeSeat}
                   >
                     <MenuItem value='Choose seat type'>Choose seat type</MenuItem>
-                    <MenuItem value={20}>Economy</MenuItem>
-                    <MenuItem value={30}>Business</MenuItem>
+                    <MenuItem value="Economy">Economy</MenuItem>
+                    <MenuItem value="Business">Business</MenuItem>
                   </Select>
                 </div>
               </Grid>

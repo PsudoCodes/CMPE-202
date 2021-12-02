@@ -14,6 +14,7 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AppBarmenu from './AppBarmenu';
 import { useHistory } from 'react-router-dom';
+import axios from "axios";
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -28,18 +29,58 @@ function Copyright(props) {
 }
 
 const theme = createTheme();
+const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+var def = true
 
 export default function SignInSide() {
+    const [text, setText] = React.useState("");
+    const [errorMessage, setErrorMessage] = React.useState("");
+    const [emptyMessage, setEmptyMessage] = React.useState("");
+
+    React.useEffect(() => {
+        // Set errorMessage only if text is equal or bigger than MAX_LENGTH
+        if (!regex.test(text)) {
+          setErrorMessage(
+            "Please enter a valid Email ID"
+          );
+        }
+      }, [text]);
+      React.useEffect(() => {
+
+        if (regex.test(text) && errorMessage) {
+          setErrorMessage("");
+        }
+    }, [text, errorMessage]);
     const history = useHistory();
+    var lengthError=  false;
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        // eslint-disable-next-line no-console
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
-        history.push('/checkout');
+
+        // let val  = (def) ? false : (!regex.test(text))
+        let val =  false
+        if(def){
+          val = false
+        }else{
+          val  = regex.test(text)
+        }
+        lengthError = (document.getElementById("password").value.length > 0)?true :false
+        if(lengthError && val){
+          var requestBody = {
+              "email":document.getElementById("email").value,
+              "password":document.getElementById("password").value
+            }
+          axios.post("http://127.0.0.1:8000/login",requestBody)
+          .then(res =>{
+            const result  = res.data.customer_id;
+            localStorage.setItem("customerid", JSON.stringify(result))
+            history.push('/checkout');
+          })
+
+        }else{
+
+        }
+
     };
 
     return (
@@ -79,6 +120,7 @@ export default function SignInSide() {
                         </Typography>
                         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                             <TextField
+                                error={(def)? false:( !regex.test(text))}
                                 margin="normal"
                                 required
                                 fullWidth
@@ -87,6 +129,8 @@ export default function SignInSide() {
                                 name="email"
                                 autoComplete="email"
                                 autoFocus
+                                helperText={errorMessage}
+                                onChange={(e) => {setText(e.target.value);def = false }}
                             />
                             <TextField
                                 margin="normal"
@@ -96,7 +140,18 @@ export default function SignInSide() {
                                 label="Password"
                                 type="password"
                                 id="password"
+                                helperText={lengthError ? "Please enter Password" : ""}
+                                error={lengthError}
                                 autoComplete="current-password"
+                                onChange={(e) => {
+                                  if(e.target.value && e.target.value.length > 0)
+                                   {
+                                     lengthError = false
+                                   }
+                                   else{
+                                      lengthError = false
+                                    }
+                                  }}
                             />
                             <FormControlLabel
                                 control={<Checkbox value="remember" color="primary" />}

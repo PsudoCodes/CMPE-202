@@ -58,6 +58,9 @@ function App() {
       <Route path="/employee">
         <EmployeeView />
       </Route>
+      <Route path="/updateBooking">
+        <UpdateBooking />
+      </Route>
       {/* </Routes> */}
       {/* <Routes> */}
       {/* <Route path="">

@@ -25,7 +25,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import axios from "axios"
-
+import { useState } from 'react';
 import AppBarmenu from './AppBarmenu';
 function Copyright() {
   return (
@@ -77,6 +77,13 @@ export default function Checkout() {
   const [seat, setSeat] = React.useState('Choose seat type');
   // var paymentObject = {}
   // review form data
+  const [rewards, setRewards] = useState(48);
+  const handleRewardClick = (event) => {
+    let a = localStorage.getItem("reward-points");
+    console.log(JSON.parse(a));
+    let newValue = rewards - a;
+    setRewards(newValue);
+};
   const handleNext = (id) => {
     if(activeStep == 0){
       personalObject.firstName = document.getElementById("firstName").value
@@ -101,7 +108,7 @@ export default function Checkout() {
     if(activeStep == steps.length-1){
 
       var requestBody  ={
-        "flight_number": "KCAZ4",
+        "flight_number": "F7ZQ8",
         "customer_id": localStorage.getItem("customerid"),
         "amount": 3500,
         "name_on_card": bookingObject.cardName,
@@ -345,17 +352,17 @@ export default function Checkout() {
             Order summary
           </Typography>
           <List disablePadding>
-            {products.map((product) => (
+            {/* {products.map((product) => (
               <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
                 <ListItemText primary={product.name} secondary={product.desc} />
                 <Typography variant="body2">{product.price}</Typography>
               </ListItem>
-            ))}
+            ))} */}
 
             <ListItem sx={{ py: 1, px: 0 }}>
               <ListItemText primary="Total" />
               <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-                $34.06
+              ${rewards}
               </Typography>
             </ListItem>
           </List>
@@ -388,7 +395,7 @@ export default function Checkout() {
           <Grid item xs={12}>
             <FormControlLabel
               control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-              label="Use my reward points"
+              label="Use my reward points" onClick={handleRewardClick}
             />
           </Grid>
         </React.Fragment>

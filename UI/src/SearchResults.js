@@ -68,6 +68,7 @@ export default function SearchResults() {
   const handleUpdate = () => history.push('/checkout');
   let a = localStorage.getItem("searchquery");
   console.log(JSON.parse(a));
+  const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
   const [backendData, setBackendData] = useState([]);
 
@@ -117,20 +118,24 @@ export default function SearchResults() {
                     alt="random"
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      SJC ----> PIT
+                  <Typography gutterBottom variant="h5" component="h2">
+                      {/* SJC ----> NYC */}
+                      {card.from_location} ----> {card.to_location}
                     </Typography>
                     <Typography>
                       {/* This is a media card. You can use this section to describe the
                       content. */}
                       <p>
-                        Date: 19th December, 2021
-                        {/* {card.date} */}
+                        Duration: {Math.floor(card.duration) / 60} hrs {(card.duration) % 60} mins
+                        {/* Date: 16th December, 2021 */}
                       </p>
                       <p>
-                        {/* Seat Number: 20G<br /> */}
-                        Seat Type: Economy
-                        {/* Seat Type: {card.seatType} */}
+                        {/* Seat Number: 20G<br />
+                        Seat Type: Economy */}
+                        Departure date: {new Date(card.departure).getDate()} {months[new Date(card.departure).getMonth()]} {new Date(card.departure).getFullYear()}
+                      </p>
+                      <p>
+                        Departure time: {new Date(card.departure).getHours()}:{new Date(card.departure).getMinutes()}:{new Date(card.departure).getSeconds()}
                       </p>
                     </Typography>
                   </CardContent>

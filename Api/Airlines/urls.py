@@ -17,6 +17,7 @@ urlpatterns = [
     path('book', views.book_tickets),
     path('cancel', views.cancel_booking),
     path('fetch-flights', views.fetch_flights),
+    path('confirmed-flights', views.confirm_flights),
 
     # rewards level
     path('fetch-rewards', views.fetch_Rewards),

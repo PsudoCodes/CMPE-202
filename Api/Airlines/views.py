@@ -93,13 +93,14 @@ def book_tickets(request):
     :return:
     """
     if request.method == 'POST':
-        flight_number = request.data.get('flight_number')
-        customer_id = request.data.get('customer_id')
-        amount = request.data.get('amount')
-        name_on_card = request.data.get('name_on_card')
-        card_number = request.data.get('card_number')
-        expiry_date = datetime.fromisoformat(request.data.get('expiry_date'))
-        cvv = request.data.get('cvv')
+        info = json.loads(request.body)
+        flight_number = info.get('flight_number')
+        customer_id = info.get('customer_id')
+        amount = info.get('amount')
+        name_on_card = info.get('name_on_card')
+        card_number = info.get('card_number')
+        expiry_date = datetime.fromisoformat(info.get('expiry_date'))
+        cvv = info.get('cvv')
         queried_flight = Flight.objects.filter(flight_number=flight_number, available_seats__gt=0).last()
         if queried_flight:
             existing_booking = Booking.objects.filter(customer_id=customer_id, flight_id=queried_flight.id).exclude(

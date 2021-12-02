@@ -79,6 +79,25 @@ export default function Checkout() {
   const [age, setAge] = React.useState('Choose a seat number');
 
   const [seat, setSeat] = React.useState('Choose seat type');
+  const [firstNameFlag, setFirstNameFlag] = useState(false);
+  const [firstNameHelp, setFirstNameHelp] = useState('');
+  const [lastNameFlag, setLastNameFlag] = useState(false);
+  const [lastNameHelp, setLastNameHelp] = useState('');
+  const [cityFlag, setCityFlag] = useState(false);
+  const [cityHelp, setCityHelp] = useState('');
+  const [stateFlag, setStateFlag] = useState(false);
+  const [stateHelp, setStateHelp] = useState('');
+  const [countryFlag, setCountryFlag] = useState(false);
+  const [countryHelp, setCountryHelp] = useState('');
+  const [cardNameFlag, setCardNameFlag] = useState(false);
+  const [cardNameHelp, setCardNameHelp] = useState('');
+  const [cardNumberFlag, setCardNumberFlag] = useState(false);
+  const [cardNumberHelp, setCardNumberHelp] = useState('');
+  const [expDateFlag, setExpDateFlag] = useState(false);
+  const [expDateHelp, setExpDateHelp] = useState('');
+  const [cvvFlag, setCvvFlag] = useState(false);
+  const [cvvHelp, setCvvHelp] = useState('');
+
   // var paymentObject = {}
   // review form data
   const [rewards, setRewards] = useState(48);
@@ -98,6 +117,48 @@ export default function Checkout() {
       personalObject.state = document.getElementById("state").value || ""
       personalObject.country = document.getElementById("country").value || ""
       personalObject.zip = document.getElementById("zip").value || ""
+
+
+      if (/\d/.test(document.getElementById("firstName").value)) {
+        setFirstNameFlag(true);
+        setFirstNameHelp('Invalid first name unless you\'re Elon Musk\'s son');
+      } else {
+        setFirstNameFlag(false);
+        setFirstNameHelp('');
+      }
+      if (/\d/.test(document.getElementById("lastName").value)) {
+        setLastNameFlag(true);
+        setLastNameHelp('Invalid last name');
+      } else {
+        setLastNameFlag(false);
+        setLastNameHelp('');
+      }
+      if (/\d/.test(document.getElementById("city").value)) {
+        setCityFlag(true);
+        setCityHelp('Invalid city name');
+      } else {
+        setCityFlag(false);
+        setCityHelp('');
+      }
+      if (/\d/.test(document.getElementById("state").value)) {
+        setStateFlag(true);
+        setStateHelp('Invalid state name');
+      }else{
+        setStateFlag(false);
+        setStateHelp('');
+      }
+      if (/\d/.test(document.getElementById("country").value)) {
+        setCountryFlag(true);
+        setCountryHelp('Invalid country name');
+      } else{
+        setCountryFlag(false);
+        setCountryHelp('');
+      }
+
+      if (!/\d/.test(document.getElementById("firstName").value) && !/\d/.test(document.getElementById("lastName").value)
+        && !/\d/.test(document.getElementById("city").value) && !/\d/.test(document.getElementById("state").value) && !/\d/.test(document.getElementById("country").value)) {
+        setActiveStep(activeStep + 1);
+      }
     }
 
     if (activeStep == 1) {
@@ -107,6 +168,41 @@ export default function Checkout() {
       bookingObject.cardNumber = document.getElementById("cardNumber").value || ""
       bookingObject.expDate = document.getElementById("expDate").value || ""
       bookingObject.cvv = document.getElementById("cvv").value || ""
+
+      if (/\d/.test(document.getElementById("cardName").value)) {
+        setCardNameFlag(true);
+        setCardNameHelp('Invalid card name');
+      } else{
+        setCardNameFlag(false);
+        setCardNameHelp('');
+      }
+      if (!/\d/.test(document.getElementById("cardNumber").value)) {
+        setCardNumberFlag(true);
+        setCardNumberHelp('Invalid card number');
+      }else {
+        setCardNumberFlag(false);
+        setCardNumberHelp('');
+      }
+      
+      if (!/^\d{4}\-\d{1,2}\-\d{1,2}$/.test(document.getElementById("expDate").value)) {
+        setExpDateFlag(true);
+        setExpDateHelp('Invalid date format');
+      } else {
+        setExpDateFlag(false);
+        setExpDateHelp('');
+      }
+
+      if (!/\d/.test(document.getElementById("cvv").value) || document.getElementById("cvv").value.length != 3 ) {
+        setCvvFlag(true);
+        setCvvHelp('Invalid CVV');
+      } else {
+        setCvvFlag(false);
+        setCvvHelp('');
+      }
+
+      if (!/\d/.test(document.getElementById("cardName").value) && /\d/.test(document.getElementById("cardNumber").value)) {
+        setActiveStep(activeStep + 1);
+      }
     }
 
     if (activeStep == steps.length - 1) {
@@ -119,6 +215,7 @@ export default function Checkout() {
         "card_number": bookingObject.cardNumber,
         "expiry_date": bookingObject.expDate,
         "cvv": bookingObject.cvv
+
       }
 
       axios.post("http://127.0.0.1:8000/book", requestBody)
@@ -127,9 +224,10 @@ export default function Checkout() {
           localStorage.setItem("booking_details", JSON.stringify(result))
           // history.push('/checkout');
         })
+      setActiveStep(activeStep + 1);
     }
 
-    setActiveStep(activeStep + 1);
+    //setActiveStep(activeStep + 1);
 
   };
 
@@ -171,6 +269,8 @@ export default function Checkout() {
                   fullWidth
                   autoComplete="given-name"
                   variant="standard"
+                  error={firstNameFlag}
+                  helperText={firstNameHelp}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -182,6 +282,8 @@ export default function Checkout() {
                   fullWidth
                   autoComplete="family-name"
                   variant="standard"
+                  error={lastNameFlag}
+                  helperText={lastNameHelp}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -214,6 +316,8 @@ export default function Checkout() {
                   fullWidth
                   autoComplete="shipping address-level2"
                   variant="standard"
+                  error={cityFlag}
+                  helperText={cityHelp}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -223,6 +327,8 @@ export default function Checkout() {
                   label="State/Province/Region"
                   fullWidth
                   variant="standard"
+                  error={stateFlag}
+                  helperText={stateHelp}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -245,6 +351,8 @@ export default function Checkout() {
                   fullWidth
                   autoComplete="shipping country"
                   variant="standard"
+                  error={countryFlag}
+                  helperText={countryHelp}
                 />
               </Grid>
               {/* <Grid item xs={12}>
@@ -282,20 +390,20 @@ export default function Checkout() {
                   >
                     <MenuItem value='Choose a seat number'>Choose a seat number</MenuItem>
                     {/* {backendData.map((card) => ( */}
-                       <MenuItem value={20}>1D</MenuItem>
-                       <MenuItem value={30}>1B</MenuItem>
-                       <MenuItem value={30}>2C</MenuItem>
-                       <MenuItem value={30}>1E</MenuItem>
-                       <MenuItem value={30}>2B</MenuItem>
-                       <MenuItem value={30}>2A</MenuItem>
-                       <MenuItem value={30}>1A</MenuItem>
-                       <MenuItem value={30}>A4</MenuItem>
-                       <MenuItem value={30}>2E</MenuItem>
-                       <MenuItem value={30}>2D</MenuItem>
-                       <MenuItem value={30}>1F</MenuItem>
-                       <MenuItem value={30}>1C</MenuItem>
-                       <MenuItem value={30}>2F</MenuItem>
-                      {/* <MenuItem value={20}>{card}</MenuItem> */}
+                    <MenuItem value={20}>1D</MenuItem>
+                    <MenuItem value={30}>1B</MenuItem>
+                    <MenuItem value={30}>2C</MenuItem>
+                    <MenuItem value={30}>1E</MenuItem>
+                    <MenuItem value={30}>2B</MenuItem>
+                    <MenuItem value={30}>2A</MenuItem>
+                    <MenuItem value={30}>1A</MenuItem>
+                    <MenuItem value={30}>A4</MenuItem>
+                    <MenuItem value={30}>2E</MenuItem>
+                    <MenuItem value={30}>2D</MenuItem>
+                    <MenuItem value={30}>1F</MenuItem>
+                    <MenuItem value={30}>1C</MenuItem>
+                    <MenuItem value={30}>2F</MenuItem>
+                    {/* <MenuItem value={20}>{card}</MenuItem> */}
                     {/* ))} */}
                   </Select>
                 </div>
@@ -331,6 +439,8 @@ export default function Checkout() {
                   fullWidth
                   autoComplete="cc-name"
                   variant="standard"
+                  error={cardNameFlag}
+                  helperText={cardNameHelp}
                 />
               </Grid>
               <Grid item xs={12} md={6}>
@@ -341,16 +451,20 @@ export default function Checkout() {
                   fullWidth
                   autoComplete="cc-number"
                   variant="standard"
+                  error={cardNumberFlag}
+                  helperText={cardNumberHelp}
                 />
               </Grid>
               <Grid item xs={12} md={6}>
                 <TextField
                   required
                   id="expDate"
-                  label="Expiry date"
+                  label="Expiry date in YYYY-MM-DD"
                   fullWidth
                   autoComplete="cc-exp"
                   variant="standard"
+                  error={expDateFlag}
+                  helperText={expDateHelp}
                 />
               </Grid>
               <Grid item xs={12} md={6}>
@@ -362,6 +476,8 @@ export default function Checkout() {
                   fullWidth
                   autoComplete="cc-csc"
                   variant="standard"
+                  error={cvvFlag}
+                  helperText={cvvHelp}
                 />
               </Grid>
               {/* <Grid item xs={12}>

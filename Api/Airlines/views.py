@@ -125,7 +125,7 @@ def book_tickets(request):
 
                     Rewards.objects.create(user_id=customer_id, booking_id=booking.id, mileage_id=mileage.id)
                 except Exception as e:
-                    return Response({"error": "Try again", "details": e})
+                    return Response({"error": "Try again", "details": str(e)})
                 queried_flight.available_seats = queried_flight.available_seats - 1
                 queried_flight.save()
                 return Response({"booking_details": model_to_dict(booking),

@@ -9,6 +9,8 @@ import Album from './Album';
 import SearchForm from './SearchForm';
 import SearchResults from './SearchResults';
 import EmployeeView from './EmployeeView';
+import MultiActionAreaCard from './rewards';
+import UpdateBooking from './updateBooking';
 function App() {
   return (
     // <div className="App">
@@ -53,6 +55,9 @@ function App() {
       </Route>
       <Route path="/employee">
         <EmployeeView />
+      </Route>
+      <Route path="/updateBooking">
+        <UpdateBooking />
       </Route>
       {/* </Routes> */}
       {/* <Routes> */}

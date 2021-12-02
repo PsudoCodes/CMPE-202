@@ -28,6 +28,7 @@ import axios from "axios"
 import { useState } from 'react';
 import AppBarmenu from './AppBarmenu';
 import { useEffect } from 'react';
+import * as configData from "./configurl.json";
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
@@ -143,14 +144,14 @@ export default function Checkout() {
       if (/\d/.test(document.getElementById("state").value)) {
         setStateFlag(true);
         setStateHelp('Invalid state name');
-      }else{
+      } else {
         setStateFlag(false);
         setStateHelp('');
       }
       if (/\d/.test(document.getElementById("country").value)) {
         setCountryFlag(true);
         setCountryHelp('Invalid country name');
-      } else{
+      } else {
         setCountryFlag(false);
         setCountryHelp('');
       }
@@ -172,18 +173,18 @@ export default function Checkout() {
       if (/\d/.test(document.getElementById("cardName").value)) {
         setCardNameFlag(true);
         setCardNameHelp('Invalid card name');
-      } else{
+      } else {
         setCardNameFlag(false);
         setCardNameHelp('');
       }
       if (!/\d/.test(document.getElementById("cardNumber").value)) {
         setCardNumberFlag(true);
         setCardNumberHelp('Invalid card number');
-      }else {
+      } else {
         setCardNumberFlag(false);
         setCardNumberHelp('');
       }
-      
+
       if (!/^\d{4}\-\d{1,2}\-\d{1,2}$/.test(document.getElementById("expDate").value)) {
         setExpDateFlag(true);
         setExpDateHelp('Invalid date format');
@@ -192,7 +193,7 @@ export default function Checkout() {
         setExpDateHelp('');
       }
 
-      if (!/\d/.test(document.getElementById("cvv").value) || document.getElementById("cvv").value.length != 3 ) {
+      if (!/\d/.test(document.getElementById("cvv").value) || document.getElementById("cvv").value.length != 3) {
         setCvvFlag(true);
         setCvvHelp('Invalid CVV');
       } else {
@@ -208,7 +209,7 @@ export default function Checkout() {
     if (activeStep == steps.length - 1) {
 
       var requestBody = {
-        "flight_number": "F7ZQ8",
+        "flight_number": "KJ9XF",
         "customer_id": localStorage.getItem("customerid"),
         "amount": 3500,
         "name_on_card": bookingObject.cardName,
@@ -218,7 +219,7 @@ export default function Checkout() {
 
       }
 
-      axios.post("http://127.0.0.1:8000/book", requestBody)
+      axios.post("http://" + configData.default.LOCAL_URL + ":8000/book", requestBody)
         .then(res => {
           const result = res.data;
           localStorage.setItem("booking_details", JSON.stringify(result))

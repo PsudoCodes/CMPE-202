@@ -57,10 +57,6 @@ export default function Album() {
     setOpen(true);
   }
   const handleClose = () => setOpen(false);
-  const handleClose1 = () => {
-    setOpen(false);
-    history.push('/mybookingsnew');
-  }
   const handleUpdate = (e) => {
     localStorage.setItem("update_booking_id", e.booking_reference_id)
     history.push('/updateBooking')
@@ -80,7 +76,9 @@ export default function Album() {
       .then(res => {
         const per = res.data;
         console.log("from the api", per);
-        setBackendData(per.results);
+        let arr = per.results;
+        let arrp = arr.pop();
+        setBackendData(arr);
         // console.log()
       })
   }, []);
@@ -151,7 +149,7 @@ export default function Album() {
               </Typography> */}
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                 Are you sure you want to cancel the reservation? {"\n"}
-                <Button onClick={handleClose1} size="small">Yes</Button>
+                <Button onClick={handleClose} size="small">Yes</Button>
                 <Button onClick={handleClose} size="small">No</Button>
               </Typography>
               {/* <CardActions>

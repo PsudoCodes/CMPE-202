@@ -153,10 +153,10 @@ export default function Checkout() {
     //let flight_search = {};
     let customer_id = 0;
     customer_id = document.getElementById("customerid").value;
-    localStorage.setItem(
-      "customerid",
-      JSON.stringify(2)
-    );
+    // localStorage.setItem(
+    //   "customerid",
+    //   JSON.stringify(2)
+    // );
     history.push({
       pathname: '/mybookings'
     });

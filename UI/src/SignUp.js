@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AppBarmenu from './AppBarmenu';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
+import * as configData from "./configurl.json";
 function Copyright(props) {
     return (
         <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -36,7 +37,7 @@ export default function SignUp() {
         'Content-Type': 'application/json',
         //"Access-Control-Allow-Origin": "*",
         //"Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS"
-      };
+    };
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -63,7 +64,7 @@ export default function SignUp() {
         reqbody.email = document.getElementById("email").value;
         reqbody.password = document.getElementById("password").value;
         console.log(reqbody);
-        axios.post('http://127.0.0.1:8000/enroll', reqbody)
+        axios.post('http://' + configData.default.LOCAL_URL + ':8000/enroll', reqbody)
             .then(res => {
                 const per = res.data;
                 console.log("from the api", per);
@@ -73,7 +74,7 @@ export default function SignUp() {
                     "customerid",
                     JSON.stringify(per.customer_id)
                 );
-                history.push('/search');     
+                history.push('/search');
             })
         // localStorage.setItem(
         //     "customerid",

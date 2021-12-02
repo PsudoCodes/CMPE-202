@@ -25,7 +25,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import axios from "axios"
-
+import * as configData from "./configurl.json";
 import AppBarmenu from './AppBarmenu';
 function Copyright() {
   return (
@@ -74,33 +74,33 @@ export default function UpdateBooking() {
   let cust_id = localStorage.getItem("customerid")
   let book_id = localStorage.getItem("update_booking_id")
   var oldBookingObject = {}
-  axios.get("http://127.0.0.1:8000/confirmed-flights?customer="+cust_id)
-  .then(res =>{
+  axios.get("http://" + configData.default.LOCAL_URL + ":8000/confirmed-flights?customer=" + cust_id)
+    .then(res => {
 
-    for(let i=0; i<res.data.results.length  ; i++){
-      if(res.data.results[i].booking_reference_id == book_id){
-        oldBookingObject = res.data.results[i]
+      for (let i = 0; i < res.data.results.length; i++) {
+        if (res.data.results[i].booking_reference_id == book_id) {
+          oldBookingObject = res.data.results[i]
+        }
       }
-    }
-    let dateStr = oldBookingObject.expiry_date;
-    let i = dateStr.indexOf("T")
+      let dateStr = oldBookingObject.expiry_date;
+      let i = dateStr.indexOf("T")
 
-    dateStr = dateStr.split("").slice(0,i).join("")
+      dateStr = dateStr.split("").slice(0, i).join("")
 
-    oldBookingObject.expiry_date = dateStr
-    if(activeStep == 1){
-    document.getElementById("cardName").value=oldBookingObject.name_on_card
-    document.getElementById("cardNumber").value=oldBookingObject.card_number
-    document.getElementById("expDate").value=oldBookingObject.expiry_date
-    document.getElementById("cvv").value=oldBookingObject.cvv
-    document.getElementById("cardName").label=" "
-    document.getElementById("cardNumber").label=" "
-    document.getElementById("expDate").label=" "
-    document.getElementById("cvv").label=" "
-    // document.getElementById("cardName").value=oldBookingObject.name_on_card
-    // document.getElementById("")
-  }
-  })
+      oldBookingObject.expiry_date = dateStr
+      if (activeStep == 1) {
+        document.getElementById("cardName").value = oldBookingObject.name_on_card
+        document.getElementById("cardNumber").value = oldBookingObject.card_number
+        document.getElementById("expDate").value = oldBookingObject.expiry_date
+        document.getElementById("cvv").value = oldBookingObject.cvv
+        document.getElementById("cardName").label = " "
+        document.getElementById("cardNumber").label = " "
+        document.getElementById("expDate").label = " "
+        document.getElementById("cvv").label = " "
+        // document.getElementById("cardName").value=oldBookingObject.name_on_card
+        // document.getElementById("")
+      }
+    })
 
   let reqObj = {};
 
@@ -111,7 +111,7 @@ export default function UpdateBooking() {
 
   // review form data
   const handleNext = (id) => {
-    if(activeStep == 0){
+    if (activeStep == 0) {
       personalObject.firstName = document.getElementById("firstName").value
       personalObject.lastName = document.getElementById("lastName").value || ""
       personalObject.address1 = document.getElementById("address1").value || ""
@@ -122,9 +122,9 @@ export default function UpdateBooking() {
       personalObject.zip = document.getElementById("zip").value || ""
     }
 
-    if(activeStep == 1){
-      bookingObject.seatNumber =  document.getElementById("seatNumber").value
-      bookingObject.seatType =  document.getElementById("seatType").value
+    if (activeStep == 1) {
+      bookingObject.seatNumber = document.getElementById("seatNumber").value
+      bookingObject.seatType = document.getElementById("seatType").value
       // bookingObject.seatNumber = "ab"
       // bookingObject.seatType = "cs"
       bookingObject.cardName = document.getElementById("cardName").value || ""
@@ -133,7 +133,7 @@ export default function UpdateBooking() {
       bookingObject.cvv = document.getElementById("cvv").value || ""
     }
 
-    if(activeStep == steps.length-1){
+    if (activeStep == steps.length - 1) {
 
       // var requestBody  ={
       //   "flight_number": "THGD2",
@@ -144,19 +144,19 @@ export default function UpdateBooking() {
       //   "expiry_date": bookingObject.expDate,
       //   "cvv": bookingObject.cvv
       // }
-      var requestBody  ={
-        "booking_reference_id" : localStorage.getItem("update_booking_id"),
-        "seat_number":bookingObject.seatNumber,
-        "seat_type" :bookingObject.seatType
+      var requestBody = {
+        "booking_reference_id": localStorage.getItem("update_booking_id"),
+        "seat_number": bookingObject.seatNumber,
+        "seat_type": bookingObject.seatType
       }
 
-      axios.post("http://127.0.0.1:8000/update",requestBody)
-      .then(res =>{
-        const result  = res.data;
+      axios.post("http://" + configData.default.LOCAL_URL + ":8000/update", requestBody)
+        .then(res => {
+          const result = res.data;
 
-        localStorage.setItem("booking_details", JSON.stringify(result))
-        // history.push('/checkout');
-      })
+          localStorage.setItem("booking_details", JSON.stringify(result))
+          // history.push('/checkout');
+        })
     }
     setActiveStep(activeStep + 1);
   };
@@ -172,9 +172,9 @@ export default function UpdateBooking() {
     setSeat(event.target.value);
   };
   function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return (
+    switch (step) {
+      case 0:
+        return (
           <React.Fragment>
             <Typography variant="h6" gutterBottom>
               Personal Details
@@ -282,8 +282,8 @@ export default function UpdateBooking() {
             </Grid>
           </React.Fragment>
         );
-    case 1:
-      return (
+      case 1:
+        return (
           <React.Fragment>
             <Typography variant="h6" gutterBottom>
               Booking and Payment
@@ -298,7 +298,7 @@ export default function UpdateBooking() {
                   autoComplete="cc-name"
                   variant="standard"
                 /> */}
-                <div style={{width: "100px"}}>
+                <div style={{ width: "100px" }}>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -307,8 +307,8 @@ export default function UpdateBooking() {
                     onChange={handleChange}
                   >
                     <MenuItem value='Choose a seat number'>Choose a seat number</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={20}>1D</MenuItem>
+                    {/* <MenuItem value={30}>Thirty</MenuItem> */}
                   </Select>
                 </div>
               </Grid>
@@ -321,7 +321,7 @@ export default function UpdateBooking() {
                   autoComplete="cc-number"
                   variant="standard"
                 /> */}
-                <div style={{width: "100px"}}>
+                <div style={{ width: "100px" }}>
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
@@ -330,8 +330,8 @@ export default function UpdateBooking() {
                     onChange={handleChangeSeat}
                   >
                     <MenuItem value='Choose seat type'>Choose seat type</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={20}>Economy</MenuItem>
+                    <MenuItem value={30}>Business</MenuItem>
                   </Select>
                 </div>
               </Grid>
@@ -378,30 +378,30 @@ export default function UpdateBooking() {
               </Grid>
             </Grid>
           </React.Fragment>
-)
-    case 2:
-      return (
-        <React.Fragment>
-          <Typography variant="h6" gutterBottom>
-            Order summary
-          </Typography>
-          <List disablePadding>
-            {products.map((product) => (
-              <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
-                <ListItemText primary={product.name} secondary={product.desc} />
-                <Typography variant="body2">{product.price}</Typography>
-              </ListItem>
-            ))}
+        )
+      case 2:
+        return (
+          <React.Fragment>
+            <Typography variant="h6" gutterBottom>
+              Order summary
+            </Typography>
+            <List disablePadding>
+              {products.map((product) => (
+                <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
+                  <ListItemText primary={product.name} secondary={product.desc} />
+                  <Typography variant="body2">{product.price}</Typography>
+                </ListItem>
+              ))}
 
-            <ListItem sx={{ py: 1, px: 0 }}>
-              <ListItemText primary="Total" />
-              <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-                $34.06
-              </Typography>
-            </ListItem>
-          </List>
-          <Grid container spacing={2}>
-            {/* <Grid item xs={12} sm={6}>
+              <ListItem sx={{ py: 1, px: 0 }}>
+                <ListItemText primary="Total" />
+                <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
+                  $34.06
+                </Typography>
+              </ListItem>
+            </List>
+            <Grid container spacing={2}>
+              {/* <Grid item xs={12} sm={6}>
               <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
                 Shipping
               </Typography>
@@ -425,19 +425,19 @@ export default function UpdateBooking() {
                 ))}
               </Grid>
             </Grid> */}
-          </Grid>
-          <Grid item xs={12}>
-            <FormControlLabel
-              control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-              label="Use my reward points"
-            />
-          </Grid>
-        </React.Fragment>
-      )
-    default:
-      throw new Error('Unknown step');
+            </Grid>
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
+                label="Use my reward points"
+              />
+            </Grid>
+          </React.Fragment>
+        )
+      default:
+        throw new Error('Unknown step');
+    }
   }
-}
 
   return (
     <ThemeProvider theme={theme}>
@@ -457,7 +457,7 @@ export default function UpdateBooking() {
           </Typography>
         </Toolbar>
       </AppBar> */}
-      <AppBarmenu/>
+      <AppBarmenu />
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
           <Typography component="h1" variant="h4" align="center">

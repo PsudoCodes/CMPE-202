@@ -108,13 +108,21 @@ def book_tickets(request):
             if existing_booking:
                 raise Exception("Already booking exists!")
             else:
-                booking_reference_id = ''.join([random.choice(string.ascii_uppercase + string.digits) for _ in range(8)])
+                booking_reference_id = ''.join(
+                    [random.choice(string.ascii_uppercase + string.digits) for _ in range(8)])
                 try:
-                    booking = Booking.objects.create(customer_id=customer_id, flight_id=queried_flight.id, amount=amount,
+                    booking = Booking.objects.create(customer_id=customer_id, flight_id=queried_flight.id,
+                                                     amount=amount,
                                                      status=Booking.STATUS.booked, card_number=card_number, cvv=cvv,
                                                      expiry_date=expiry_date, name_on_card=name_on_card,
                                                      booking_reference_id=booking_reference_id
                                                      )
+                    mileage = Mileage.objects.filter(to_location=queried_flight.to_location,
+                                                         from_location=queried_flight.from_location).last()
+                    if not mileage:
+                        raise Exception(" No Mileage Found")
+
+                    Rewards.objects.create(user_id=customer_id, booking_id=booking.id, mileage_id=mileage.id)
                 except Exception as e:
                     return Response({"error": "Try again", "details": e})
                 queried_flight.available_seats = queried_flight.available_seats - 1

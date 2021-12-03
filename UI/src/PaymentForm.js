@@ -24,14 +24,7 @@ export default function PaymentForm() {
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6} sx={{ minWidth: 120 }}>
-          {/* <TextField
-            required
-            id="seatNumber"
-            label="Seat Number"
-            fullWidth
-            autoComplete="cc-name"
-            variant="standard"
-          /> */}
+       
           <div style={{width: "100px"}}>
             <Select
               labelId="demo-simple-select-label"
@@ -47,14 +40,7 @@ export default function PaymentForm() {
           </div>
         </Grid>
         <Grid item xs={12} md={6}>
-          {/* <TextField
-            required
-            id="seatType"
-            label="Seat Type"
-            fullWidth
-            autoComplete="cc-number"
-            variant="standard"
-          /> */}
+      
           <div style={{width: "100px"}}>
             <Select
               labelId="demo-simple-select-label"
@@ -110,12 +96,7 @@ export default function PaymentForm() {
             variant="standard"
           />
         </Grid>
-        {/* <Grid item xs={12}>
-          <FormControlLabel
-            control={<Checkbox color="secondary" name="saveCard" value="yes" />}
-            label="Remember credit card details for next time"
-          />
-        </Grid> */}
+       
       </Grid>
     </React.Fragment>
   );

@@ -12,9 +12,7 @@ import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-// import AddressForm from './AddressForm';
-// import PaymentForm from './PaymentForm';
-// import Review from './Review';
+
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -97,8 +95,7 @@ export default function UpdateBooking() {
         document.getElementById("cardNumber").label = " "
         document.getElementById("expDate").label = " "
         document.getElementById("cvv").label = " "
-        // document.getElementById("cardName").value=oldBookingObject.name_on_card
-        // document.getElementById("")
+
       }
     })
 
@@ -123,8 +120,7 @@ export default function UpdateBooking() {
     }
 
     if (activeStep == 1) {
-      // bookingObject.seatNumber = document.getElementById("seatNumber").value
-      // bookingObject.seatType = document.getElementById("seatType").value
+
       bookingObject.seatNumber = "1D"
       bookingObject.seatType = "Economy"
       bookingObject.cardName = document.getElementById("cardName").value || ""

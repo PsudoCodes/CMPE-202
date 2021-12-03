@@ -53,7 +53,7 @@ export default function EmployeeView() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleUpdate = () => history.push('/checkout');
-  
+
   return (
     <ThemeProvider theme={theme}>
       <AppBarmenuEmployee />
@@ -70,10 +70,10 @@ export default function EmployeeView() {
                   <CardMedia
                     component="img"
                     sx={{
-                      // 16:9
+
                       pt: '56.25%',
                     }}
-                    //image="https://source.unsplash.com/random"
+
                     image="https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F28%2F2020%2F05%2F12%2Funited-airlines-FULL0520.jpg"
 
                     alt="random"
@@ -83,8 +83,7 @@ export default function EmployeeView() {
                       SJC ---- NYC
                     </Typography>
                     <Typography>
-                      {/* This is a media card. You can use this section to describe the
-                      content. */}
+
                       <p>
                         Date: 16th December, 2021
                       </p>

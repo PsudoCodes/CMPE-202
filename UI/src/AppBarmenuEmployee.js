@@ -81,7 +81,7 @@ export default function PrimarySearchAppBar() {
   const [state, setState] = React.useState({
     left: false,
   });
-  //const menuOptions = "My Trips","Search Flights", "Sign Out"
+
   const menuOptions = [
     {
       label:"Sign Out",
@@ -135,32 +135,13 @@ export default function PrimarySearchAppBar() {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      {/* <List>
-        {props.type === 'restaurant' && menuItems.map((listItem, key) => (
-          <ListItem button key={key} component={Link} to={listItem.listPath}>
-            <ListItemIcon className={classes.listItem}>{listItem.listIcon}</ListItemIcon>
-            <ListItemText className={classes.listItem} primary={listItem.listText} />
-          </ListItem>
-        ))}
-        {props.type === 'customer' && customer.map((listItem, key) => (
-          <ListItem button key={key} component={Link} to={listItem.listPath}>
-            <ListItemIcon className={classes.listItem}>{listItem.listIcon}</ListItemIcon>
-            <ListItemText className={classes.listItem} primary={listItem.listText} />
-          </ListItem>
-        ))}
-        {props.type === 'signup' && general.map((listItem, key) => (
-          <ListItem button key={key} component={Link} to={listItem.listPath}>
-            <ListItemIcon className={classes.listItem}>{listItem.listIcon}</ListItemIcon>
-            <ListItemText className={classes.listItem} primary={listItem.listText} />
-          </ListItem>
-        ))}
-      </List> */}
+
       <List>
-        {/* {["My Trips","Search Flights", "Sign Out"].map((value) => ( */}
+
         {menuOptions.map((menu) => (
-          
+
           <ListItem button key={menu.label} component={Link} to={menu.nav} >
-            {/* <ListItemIcon className={classes.listItem}>{listItem.listIcon}</ListItemIcon> */}
+
             <ListItemText primary={menu.label} />
           </ListItem>
         ))}

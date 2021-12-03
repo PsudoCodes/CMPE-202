@@ -101,7 +101,7 @@ export default function Checkout() {
 
   // var paymentObject = {}
   // review form data
-  const [rewards, setRewards] = useState(48);
+  const [rewards, setRewards] = useState(500);
   const handleRewardClick = (event) => {
     let a = localStorage.getItem("reward-points");
     console.log(JSON.parse(a));
@@ -585,11 +585,11 @@ export default function Checkout() {
             {activeStep === steps.length ? (
               <React.Fragment>
                 <Typography variant="h5" gutterBottom>
-                  Thank you for your order.
+                  Thank you for your booking.
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order
-                  confirmation, and will send you an update when your order has
+                  Your booking number is #2001539. We have emailed your flight
+                  ticket confirmation, and will send you an update when your order has
                   shipped.
                 </Typography>
               </React.Fragment>

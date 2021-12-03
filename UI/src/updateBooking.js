@@ -384,17 +384,17 @@ export default function UpdateBooking() {
               Order summary
             </Typography>
             <List disablePadding>
-              {products.map((product) => (
+              {/* {products.map((product) => (
                 <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
                   <ListItemText primary={product.name} secondary={product.desc} />
                   <Typography variant="body2">{product.price}</Typography>
                 </ListItem>
-              ))}
+              ))} */}
 
               <ListItem sx={{ py: 1, px: 0 }}>
                 <ListItemText primary="Total" />
                 <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-                  $34.06
+                  $522
                 </Typography>
               </ListItem>
             </List>
@@ -472,11 +472,11 @@ export default function UpdateBooking() {
             {activeStep === steps.length ? (
               <React.Fragment>
                 <Typography variant="h5" gutterBottom>
-                  Thank you for your order.
+                  Thank you for your booking.
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order
-                  confirmation, and will send you an update when your order has
+                  Your booking number is #2001539. We have emailed your flight
+                  ticket confirmation, and will send you an update when your order has
                   shipped.
                 </Typography>
               </React.Fragment>
@@ -495,7 +495,7 @@ export default function UpdateBooking() {
                     onClick={handleNext}
                     sx={{ mt: 3, ml: 1 }}
                   >
-                    {activeStep === steps.length - 1 ? 'Booking' : 'Next'}
+                    {activeStep === steps.length - 1 ? 'Update Booking' : 'Next'}
                   </Button>
                 </Box>
               </React.Fragment>

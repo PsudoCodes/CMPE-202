@@ -101,7 +101,7 @@ export default function PrimarySearchAppBar() {
     },
     {
       label: "Sign Out",
-      nav: "/signin"
+      nav: "/signup"
     }
   ];
 

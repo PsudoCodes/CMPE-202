@@ -80,7 +80,7 @@ export default function EmployeeView() {
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      SJC ----> NYC
+                      SJC ---- NYC
                     </Typography>
                     <Typography>
                       {/* This is a media card. You can use this section to describe the
@@ -109,13 +109,19 @@ export default function EmployeeView() {
             aria-describedby="modal-modal-description"
           >
             <Box sx={style}>
-              
+              {/* <Typography id="modal-modal-title" variant="h6" component="h2">
+                Text in a modal
+              </Typography> */}
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                 Are you sure you want to cancel the reservation? {"\n"}
                 <Button onClick={handleClose} size="small">Yes</Button>
                 <Button onClick={handleClose} size="small">No</Button>
               </Typography>
-              
+              {/* <CardActions>
+                <Button size="small">Yes</Button>
+                <Button size="small">No</Button>
+              </CardActions> */}
+            </Box>
           </Modal>
         </Container>
       </main>

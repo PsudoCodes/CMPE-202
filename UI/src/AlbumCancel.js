@@ -65,10 +65,7 @@ export default function Album() {
   let num = 2;
   const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-  // localStorage.setItem(
-  //   "customerid",
-  //   JSON.stringify(2)
-  // );
+ 
   let a = localStorage.getItem("customerid");
   console.log(JSON.parse(a));
   useEffect(() => {
@@ -79,7 +76,6 @@ export default function Album() {
         let arr = per.results;
         let arrp = arr.pop();
         setBackendData(arr);
-        // console.log()
       })
   }, []);
   return (
@@ -88,7 +84,6 @@ export default function Album() {
       <CssBaseline />
       <main>
         <Container sx={{ py: 8 }} maxWidth="md">
-          {/* End hero unit */}
           <Grid container spacing={4}>
             {backendData.map((card) => (
               <Grid item key={card} xs={12} sm={6} md={4}>
@@ -101,7 +96,6 @@ export default function Album() {
                       // 16:9
                       pt: '56.25%',
                     }}
-                    //image="https://source.unsplash.com/random"
                     image="https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F28%2F2020%2F05%2F12%2Funited-airlines-FULL0520.jpg"
 
                     alt="random"
@@ -112,19 +106,13 @@ export default function Album() {
                       {card.from_location} ----> {card.to_location}
                     </Typography>
                     <Typography>
-                      {/* This is a media card. You can use this section to describe the
-                      content. */}
                       <p>
                         Duration: {Math.floor(card.duration) / 60} hrs {(card.duration) % 60} mins
-                        {/* Date: 16th December, 2021 */}
                       </p>
                       <p>
-                        {/* Seat Number: 20G<br />
-                        Seat Type: Economy */}
                         Departure date: {new Date(card.departure).getDate()} {months[new Date(card.departure).getMonth()]} {new Date(card.departure).getFullYear()}
                       </p>
                       <p>
-                        {/* Departure time: {new Date(card.departure).getHours()}:{new Date(card.departure).getMinutes()}:{new Date(card.departure).getSeconds()} */}
                         Departure time: 11:00:00
                       </p>
                     </Typography>
@@ -144,18 +132,13 @@ export default function Album() {
             aria-describedby="modal-modal-description"
           >
             <Box sx={style}>
-              {/* <Typography id="modal-modal-title" variant="h6" component="h2">
-                Text in a modal
-              </Typography> */}
+              
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
                 Are you sure you want to cancel the reservation? {"\n"}
                 <Button onClick={handleClose} size="small">Yes</Button>
                 <Button onClick={handleClose} size="small">No</Button>
               </Typography>
-              {/* <CardActions>
-                <Button size="small">Yes</Button>
-                <Button size="small">No</Button>
-              </CardActions> */}
+            
             </Box>
           </Modal>
         </Container>

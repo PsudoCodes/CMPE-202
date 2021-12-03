@@ -35,17 +35,12 @@ export default function SignUp() {
     const history = useHistory();
     const headers = {
         'Content-Type': 'application/json',
-        //"Access-Control-Allow-Origin": "*",
-        //"Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS"
+
     };
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        // eslint-disable-next-line no-console
-        // console.log({
-        //     email: data.get('email'),
-        //     password: data.get('password'),
-        // });
+
         const reqbody = {
             first_name: "ani",
             last_name: "S",

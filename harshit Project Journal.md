@@ -5,36 +5,32 @@ CMPE 202-03 Team-Technocrats
 ## Project Journal Week 1:
 1. Explored options for technology stack for frontend. 
 2. Decided to proceed with React.
-3. Started studying basic concepts of React.
-4. Created basic templates.
-5. Started basic documentation.
+3. Created architecture with the help of backend developers
+4. Created project structure.
+5. Started UI documentation.
 
 
 ## Project Journal Week 2:
-1. Created use cases, test cases for admin actions API, add user and remove user.
-2. Created base API for admin actions - Customer requests, Approve customer requests.
-3. Created base API for admin actions - Withdrawal, Open account, Close account.
+1. Took ownership of update,cancel, modify , signup , signIn modules and UI validations.
+2. Created UI for Update and modify bookings.
+3. Integrated update API.
 
 
 ## Project Journal Week 3:
-1. Created the UI for User Home page.
-2. Created the UI for Admin Home page.
+1. Created the UI for Cancel booking.
+2. Integrated cancel API.
 
 
 
 ## Project Journal Week 4:
-3. Added an admin functionality for customer requests.
-4. Added another functionality to approve customer requests.
-
+1. Created signIn pages.
+2. Integrated signin apis.
 
 ## Project Journal Week 5:
-1. Finished all pending UI.
-5. Finished creating APIs for admin actions.
-6. Created UI for Search & Filter transactions.
-7. Worked on documentation.
+1. Created signUp pages.
+2. Integrated signUp apis.
 
 ## Project Journal Week 6:
-2. Finished documentation.
-3. Worked on deployment.
-
+1. Implemented user validations.
+2. Performed user testing.
 

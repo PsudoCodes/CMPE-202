@@ -96,7 +96,7 @@ export default function Checkout() {
   const [cvvFlag, setCvvFlag] = useState(false);
   const [cvvHelp, setCvvHelp] = useState('');
 
- 
+
   const [rewards, setRewards] = useState(500);
   const handleRewardClick = (event) => {
     let a = localStorage.getItem("reward-points");
@@ -349,7 +349,7 @@ export default function Checkout() {
                   helperText={countryHelp}
                 />
               </Grid>
-             
+
             </Grid>
           </React.Fragment>
         );
@@ -361,7 +361,7 @@ export default function Checkout() {
             </Typography>
             <Grid container spacing={3}>
               <Grid item xs={12} md={6} sx={{ minWidth: 120 }}>
-              
+
                 <div style={{ width: "100px" }}>
                   <Select
                     labelId="demo-simple-select-label"
@@ -388,7 +388,7 @@ export default function Checkout() {
                 </div>
               </Grid>
               <Grid item xs={12} md={6}>
-             
+
                 <div style={{ width: "100px" }}>
                   <Select
                     labelId="demo-simple-select-label"
@@ -452,7 +452,7 @@ export default function Checkout() {
                   helperText={cvvHelp}
                 />
               </Grid>
-            
+
             </Grid>
           </React.Fragment>
         )
@@ -463,8 +463,6 @@ export default function Checkout() {
               Order summary
             </Typography>
             <List disablePadding>
-           
-
               <ListItem sx={{ py: 1, px: 0 }}>
                 <ListItemText primary="Total" />
                 <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
@@ -473,7 +471,7 @@ export default function Checkout() {
               </ListItem>
             </List>
             <Grid container spacing={2}>
-            
+
             </Grid>
             <Grid item xs={12}>
               <FormControlLabel
@@ -491,7 +489,7 @@ export default function Checkout() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-     
+
       <AppBarmenu />
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
@@ -513,8 +511,7 @@ export default function Checkout() {
                 </Typography>
                 <Typography variant="subtitle1">
                   Your booking number is #2001539. We have emailed your flight
-                  ticket confirmation, and will send you an update when your order has
-                  shipped.
+                  ticket confirmation.
                 </Typography>
               </React.Fragment>
             ) : (

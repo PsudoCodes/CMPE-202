@@ -2,6 +2,10 @@
 
 CMPE 202-03 Team-Technocrats 
 
+My goal of the project was to become proficient in UI development.
+The obstacles I faced were learning and implementing an application on react in a short span of time.
+My accomplishments were owning booking flight and rewards section and implementing it from scratch.
+
 ## Project Journal Week 1:
 1. Explored options for technology stack.
 2. Chose AWS platform to deploy APIs.
@@ -23,12 +27,9 @@ CMPE 202-03 Team-Technocrats
 3. Worked on making Sign up User API.
 
 
-
-## Project Journal Week 6:
-1. Worked on Javscipts JWT tokens for cookies.
-2. Worked on Authorization in UI.
-3. Finished Logout API.
-
+## Project Journal Week 4:
+1. Finished UI wireframes 
+2. Finished documentation.
 
 
 ## Project Journal Week 5:
@@ -37,6 +38,7 @@ CMPE 202-03 Team-Technocrats
 3. Finished documentation for Architecture, Deployment and component diagram.
 
 
-## Project Journal Week 4:
-1. Finished UI wireframes 
-2. Finished documentation.
+## Project Journal Week 6:
+1. Worked on Javscipts JWT tokens for cookies.
+2. Worked on Authorization in UI.
+3. Finished Logout API.

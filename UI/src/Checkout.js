@@ -12,9 +12,7 @@ import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-// import AddressForm from './AddressForm';
-// import PaymentForm from './PaymentForm';
-// import Review from './Review';
+
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -76,7 +74,6 @@ export default function Checkout() {
     1, 2, 3
   ]
   const [backendData, setBackendData] = useState([]);
-  //payment form
   const [age, setAge] = React.useState('Choose a seat number');
 
   const [seat, setSeat] = React.useState('Choose seat type');
@@ -99,8 +96,7 @@ export default function Checkout() {
   const [cvvFlag, setCvvFlag] = useState(false);
   const [cvvHelp, setCvvHelp] = useState('');
 
-  // var paymentObject = {}
-  // review form data
+ 
   const [rewards, setRewards] = useState(500);
   const handleRewardClick = (event) => {
     let a = localStorage.getItem("reward-points");
@@ -223,12 +219,10 @@ export default function Checkout() {
         .then(res => {
           const result = res.data;
           localStorage.setItem("booking_details", JSON.stringify(result))
-          // history.push('/checkout');
         })
       setActiveStep(activeStep + 1);
     }
 
-    //setActiveStep(activeStep + 1);
 
   };
 
@@ -249,7 +243,6 @@ export default function Checkout() {
         const per = res.data;
         console.log("from the seat api", per);
         setBackendData(per.results);
-        // console.log()
       })
   }, []);
   function getStepContent(step) {
@@ -356,12 +349,7 @@ export default function Checkout() {
                   helperText={countryHelp}
                 />
               </Grid>
-              {/* <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-                  label="Use this address for payment details"
-                />
-              </Grid> */}
+             
             </Grid>
           </React.Fragment>
         );
@@ -373,14 +361,7 @@ export default function Checkout() {
             </Typography>
             <Grid container spacing={3}>
               <Grid item xs={12} md={6} sx={{ minWidth: 120 }}>
-                {/* <TextField
-                  required
-                  id="seatNumber"
-                  label="Seat Number"
-                  fullWidth
-                  autoComplete="cc-name"
-                  variant="standard"
-                /> */}
+              
                 <div style={{ width: "100px" }}>
                   <Select
                     labelId="demo-simple-select-label"
@@ -390,7 +371,6 @@ export default function Checkout() {
                     onChange={handleChange}
                   >
                     <MenuItem value='Choose a seat number'>Choose a seat number</MenuItem>
-                    {/* {backendData.map((card) => ( */}
                     <MenuItem value={20}>1D</MenuItem>
                     <MenuItem value={30}>1B</MenuItem>
                     <MenuItem value={30}>2C</MenuItem>
@@ -404,20 +384,11 @@ export default function Checkout() {
                     <MenuItem value={30}>1F</MenuItem>
                     <MenuItem value={30}>1C</MenuItem>
                     <MenuItem value={30}>2F</MenuItem>
-                    {/* <MenuItem value={20}>{card}</MenuItem> */}
-                    {/* ))} */}
                   </Select>
                 </div>
               </Grid>
               <Grid item xs={12} md={6}>
-                {/* <TextField
-                  required
-                  id="seatType"
-                  label="Seat Type"
-                  fullWidth
-                  autoComplete="cc-number"
-                  variant="standard"
-                /> */}
+             
                 <div style={{ width: "100px" }}>
                   <Select
                     labelId="demo-simple-select-label"
@@ -481,12 +452,7 @@ export default function Checkout() {
                   helperText={cvvHelp}
                 />
               </Grid>
-              {/* <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox color="secondary" name="saveCard" value="yes" />}
-                  label="Remember credit card details for next time"
-                />
-              </Grid> */}
+            
             </Grid>
           </React.Fragment>
         )
@@ -497,12 +463,7 @@ export default function Checkout() {
               Order summary
             </Typography>
             <List disablePadding>
-              {/* {products.map((product) => (
-              <ListItem key={product.name} sx={{ py: 1, px: 0 }}>
-                <ListItemText primary={product.name} secondary={product.desc} />
-                <Typography variant="body2">{product.price}</Typography>
-              </ListItem>
-            ))} */}
+           
 
               <ListItem sx={{ py: 1, px: 0 }}>
                 <ListItemText primary="Total" />
@@ -512,30 +473,7 @@ export default function Checkout() {
               </ListItem>
             </List>
             <Grid container spacing={2}>
-              {/* <Grid item xs={12} sm={6}>
-              <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
-                Shipping
-              </Typography>
-              <Typography gutterBottom>John Smith</Typography>
-              <Typography gutterBottom>{addresses.join(', ')}</Typography>
-            </Grid>
-            <Grid item container direction="column" xs={12} sm={6}>
-              <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
-                Payment details
-              </Typography>
-              <Grid container>
-                {payments.map((payment) => (
-                  <React.Fragment key={payment.name}>
-                    <Grid item xs={6}>
-                      <Typography gutterBottom>{payment.name}</Typography>
-                    </Grid>
-                    <Grid item xs={6}>
-                      <Typography gutterBottom>{payment.detail}</Typography>
-                    </Grid>
-                  </React.Fragment>
-                ))}
-              </Grid>
-            </Grid> */}
+            
             </Grid>
             <Grid item xs={12}>
               <FormControlLabel
@@ -553,21 +491,7 @@ export default function Checkout() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {/* <AppBar
-        position="absolute"
-        color="default"
-        elevation={0}
-        sx={{
-          position: 'relative',
-          borderBottom: (t) => `1px solid ${t.palette.divider}`,
-        }}
-      >
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            Company name
-          </Typography>
-        </Toolbar>
-      </AppBar> */}
+     
       <AppBarmenu />
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>

@@ -55,86 +55,7 @@ function getStepContent(step) {
                 variant="standard"
               />
             </Grid>
-            {/* <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                id="to"
-                name="lastName"
-                label="To"
-                fullWidth
-                autoComplete="family-name"
-                variant="standard"
-              />
-            </Grid> */}
-            {/* <Grid item xs={12}>
-                  <TextField
-                    required
-                    id="address1"
-                    name="address1"
-                    label="Address line 1"
-                    fullWidth
-                    autoComplete="shipping address-line1"
-                    variant="standard"
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    id="address2"
-                    name="address2"
-                    label="Address line 2"
-                    fullWidth
-                    autoComplete="shipping address-line2"
-                    variant="standard"
-                  />
-                </Grid> */}
-            {/* <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                id="start"
-                name="city"
-                label="Start Date"
-                fullWidth
-                autoComplete="shipping address-level2"
-                variant="standard"
-              />
-            </Grid> */}
-            {/* <Grid item xs={12} sm={6}>
-              <TextField
-                id="state"
-                name="state"
-                label="End Date"
-                fullWidth
-                variant="standard"
-              />
-            </Grid> */}
-            {/* <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                id="travel"
-                name="zip"
-                label="Travellers"
-                fullWidth
-                autoComplete="shipping postal-code"
-                variant="standard"
-              /> */}
-            {/* </Grid> */}
-            {/* <Grid item xs={12} sm={6}>
-                  <TextField
-                    required
-                    id="country"
-                    name="country"
-                    label="Country"
-                    fullWidth
-                    autoComplete="shipping country"
-                    variant="standard"
-                  />
-                </Grid> */}
-            {/* <Grid item xs={12}>
-                  <FormControlLabel
-                    control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-                    label="Use this address for payment details"
-                  />
-                </Grid> */}
+            
           </Grid>
         </React.Fragment>
       );
@@ -149,14 +70,10 @@ export default function Checkout() {
   const [activeStep, setActiveStep] = React.useState(0);
   const history = useHistory();
   const handleNext = () => {
-    //setActiveStep(activeStep + 1);
-    //let flight_search = {};
+    
     let customer_id = 0;
     customer_id = document.getElementById("customerid").value;
-    // localStorage.setItem(
-    //   "customerid",
-    //   JSON.stringify(2)
-    // );
+   
     history.push({
       pathname: '/mybookings'
     });

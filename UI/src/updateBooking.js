@@ -131,15 +131,7 @@ export default function UpdateBooking() {
 
     if (activeStep == steps.length - 1) {
 
-      // var requestBody  ={
-      //   "flight_number": "THGD2",
-      //   "customer_id": localStorage.getItem("customerid"),
-      //   "amount": 3500,
-      //   "name_on_card": bookingObject.cardName,
-      //   "card_number": bookingObject.cardNumber,
-      //   "expiry_date": bookingObject.expDate,
-      //   "cvv": bookingObject.cvv
-      // }
+
       var requestBody = {
         "booking_reference_id": localStorage.getItem("update_booking_id"),
         "seat_number": bookingObject.seatNumber,
@@ -151,7 +143,7 @@ export default function UpdateBooking() {
           const result = res.data;
 
           localStorage.setItem("booking_details", JSON.stringify(result))
-          // history.push('/checkout');
+
         })
     }
     setActiveStep(activeStep + 1);

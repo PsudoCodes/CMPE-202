@@ -85,7 +85,7 @@ export default function PrimarySearchAppBar() {
   const [state, setState] = React.useState({
     left: false,
   });
-  //const menuOptions = "My Trips","Search Flights", "Sign Out"
+
   const menuOptions = [
     {
       label: "My Trips",
@@ -151,34 +151,14 @@ export default function PrimarySearchAppBar() {
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      {/* <List>
-        {props.type === 'restaurant' && menuItems.map((listItem, key) => (
-          <ListItem button key={key} component={Link} to={listItem.listPath}>
-            <ListItemIcon className={classes.listItem}>{listItem.listIcon}</ListItemIcon>
-            <ListItemText className={classes.listItem} primary={listItem.listText} />
-          </ListItem>
-        ))}
-        {props.type === 'customer' && customer.map((listItem, key) => (
-          <ListItem button key={key} component={Link} to={listItem.listPath}>
-            <ListItemIcon className={classes.listItem}>{listItem.listIcon}</ListItemIcon>
-            <ListItemText className={classes.listItem} primary={listItem.listText} />
-          </ListItem>
-        ))}
-        {props.type === 'signup' && general.map((listItem, key) => (
-          <ListItem button key={key} component={Link} to={listItem.listPath}>
-            <ListItemIcon className={classes.listItem}>{listItem.listIcon}</ListItemIcon>
-            <ListItemText className={classes.listItem} primary={listItem.listText} />
-          </ListItem>
-        ))}
-      </List> */}
+
       <List>
-        {/* {["My Trips","Search Flights", "Sign Out"].map((value) => ( */}
+
         {menuOptions.map((menu) => (
 
           <ListItem button key={menu.label} component={Link} to={menu.nav} >
-            {/* <ListItemIcon className={classes.listItem}>{listItem.listIcon}</ListItemIcon> */}
+
             <ListItemText primary={menu.label} />
-            {/* <ListItemText primary=4 /> */}
 
           </ListItem>
         ))}
@@ -225,27 +205,8 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      {/* <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem> */}
-      <MenuItem onClick={handleProfileMenuOpen}>
+
+        <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           size="large"
           aria-label="account of current user"
@@ -271,7 +232,7 @@ export default function PrimarySearchAppBar() {
           "reward-points",
           per.results
         );
-        // console.log()
+
       })
   }, []);
   return (

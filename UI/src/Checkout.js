@@ -209,7 +209,7 @@ export default function Checkout() {
     if (activeStep == steps.length - 1) {
 
       var requestBody = {
-        "flight_number": "KJ9XF",
+        "flight_number": localStorage.getItem("flightid"),
         "customer_id": localStorage.getItem("customerid"),
         "amount": 3500,
         "name_on_card": bookingObject.cardName,

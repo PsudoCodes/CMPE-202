@@ -304,7 +304,6 @@ export default function UpdateBooking() {
                     id="seatNumber"
                     label="Agesgsdfgsdfgsdgfsfdg"
                     onChange={handleChange}
-                    value=""
                   >
                     <MenuItem value='Choose a seat number'>Choose a seat number</MenuItem>
                     <MenuItem value="1D">1D</MenuItem>

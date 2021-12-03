@@ -63,7 +63,13 @@ const theme = createTheme();
 export default function SearchResults() {
   const history = useHistory();
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => history.push('/checkout');
+  const handleOpen = (val) => {
+    localStorage.setItem(
+      "flightid",
+      val
+    );
+    history.push('/checkout');
+  }
   const handleClose = () => setOpen(false);
   const handleUpdate = () => history.push('/checkout');
   let a = localStorage.getItem("searchquery");
@@ -143,7 +149,7 @@ export default function SearchResults() {
                   </CardContent>
                   <CardActions>
                     <Button style={{ visibility: "hidden" }} onClick={handleUpdate} size="small">Update Reservation</Button>
-                    <Button onClick={handleOpen} size="small">Book</Button>
+                    <Button onClick={() => handleOpen(card.flight_number)} size="small">Book</Button>
                   </CardActions>
                 </Card>
               </Grid>

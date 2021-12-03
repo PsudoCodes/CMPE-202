@@ -2,6 +2,8 @@
 
 CMPE 202-03 Team-Technocratas
 
+My goal of the project was to become good in full-stack development. The obstacles I faced were learning and implementing various front-end and back-end technology in the given. My accomplishments were learning basics technologies like react , python django.
+
 ## Project Journal Week 1:
 1. Explored options for technology stack for database. 
 2. Decided to proceed with postgres.
